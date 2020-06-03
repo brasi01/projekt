@@ -53,10 +53,6 @@
   display: flex;
   flex-direction: column;
 
-  //   &__headline {
-  //       display: flex;
-  //       justify-content: center;
-  //   }
   &__chooses {
     display: flex;
     flex-direction: column;
@@ -146,6 +142,32 @@
   }
 }
 
+.package-extension {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  // &__headline {
+
+  // }
+
+  &__offer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__offer-tile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+    cursor: pointer;
+  }
+}
+
 // INTERNET ŚWIATŁOWODOWY
 
 .internet {
@@ -197,15 +219,44 @@
 
 .price-summary {
   width: 100%;
-}
+  display: flex;
+  flex-direction: column;
 
-.price-summary-headline {
-  width: 100%;
-  text-align: center;
-  &__text {
+  &__headline {
+    width: 100%;
+    text-align: center;
+  }
+  &__headline-text {
     color: color(secoundary);
     padding: 0.5rem 0;
     font-size: 1.8rem;
     line-height: 1.8rem;
   }
+
+  &__schedule {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }
+
+.monthly-payment {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.disposable-payment {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.active {
+  border: 1px solid red;
+}
+

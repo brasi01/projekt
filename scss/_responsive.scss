@@ -32,22 +32,41 @@
     }
   }
 
+  .chanels-enhancement {
+    &__headline {
+      text-align: start;
+    }
+  }
+
+  .package-extension {
+    &__offer {
+      flex-direction: row;
+      justify-content: space-around;
+    }
+  }
+
   .internet-headline {
     text-align: start;
   }
 
   .web_extention {
     &__offer-content {
-        flex: 1;
-      }
+      flex: 1;
+    }
     &__offer {
       flex-flow: row wrap;
       justify-content: space-between;
     }
   }
 
-  .price-summary-headline {
-    text-align: start;
+  .price-summary {
+    &__headline {
+      text-align: start;
+    }
+    &__schedule {
+      flex-direction: row;
+      justify-content: space-around;
+    }
   }
 }
 
