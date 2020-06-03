@@ -1,0 +1,65 @@
+@include media-md {
+  .form {
+    width: 60%;
+  }
+
+  .form-headline {
+    text-align: start;
+  }
+
+  .eq-options {
+    // &__headline {
+    //   justify-content: flex-start;
+    // }
+
+    &__chooses {
+      flex-direction: row;
+      justify-content: space-around;
+    }
+  }
+
+  .tv-headline {
+    text-align: start;
+  }
+
+  .tv-package {
+    &__offer-content {
+      flex: 1;
+    }
+    &__offer {
+      flex-flow: row wrap;
+      justify-content: space-between;
+    }
+  }
+
+  .internet-headline {
+    text-align: start;
+  }
+
+  .web_extention {
+    &__offer-content {
+        flex: 1;
+      }
+    &__offer {
+      flex-flow: row wrap;
+      justify-content: space-between;
+    }
+  }
+
+  .price-summary-headline {
+    text-align: start;
+  }
+}
+
+@include media-lg {
+  .tv-package {
+    &__offer-headline {
+      display: block;
+    }
+  }
+  .web_extention {
+    &__offer-headline {
+      display: block;
+    }
+  }
+}

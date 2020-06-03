@@ -1,0 +1,50 @@
+$colors: (
+  primary: #6f6f77,
+  secoundary: #bec5ca,
+  tchird: #f2f9ff,
+  //   primary-light: #fff,
+    //   primary-dark: #000,
+    accent-color: #70ccff,
+  accent-shadow: rgba(0, 161, 250, 0.4),
+  //   accent-color-darker: rgb(35, 143, 35),
+    bg: rgb(38, 38, 38),
+  //   bg-light: #fff,
+    bg-dark: #08080a,
+);
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@function color($color-name) {
+  @return map-get($colors, $color-name);
+}
+
+@mixin headings {
+  color: color(accent-color);
+  text-shadow: 0 0 5px color(accent-shadow);
+}
+
+// @mixin transition-ease {
+//   transition: all 0.2s ease-in-out;
+// }
+
+@mixin media-md {
+  @media screen and (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin media-lg {
+  @media screen and (min-width: 1024px) {
+    @content;
+  }
+}
+
+// @mixin media-xl {
+//     @media screen and (min-width: 1600px) {
+//         @content;
+//     }
+// }
