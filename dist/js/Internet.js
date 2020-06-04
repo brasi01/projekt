@@ -19,6 +19,10 @@ class Internet {
     setPrice(value) {
         this.price = value;
     }
+
+    markDefaultOption(selector) {
+        selector.classList.add('active');
+    }
 }
 let internet_selector = document.querySelectorAll('.web_extention__offer-content');
 
@@ -35,8 +39,8 @@ const prices_12 = [69, 75, 85, 95, 120];
 
 internets.forEach(internet => {
     internet.selector.addEventListener('click', () => {
-        internets.forEach(internet => internet.selector.removeAttribute("style"))
-        internet.selector.style.border = "1px solid red"
+        internets.forEach(internet => internet.selector.classList.remove("active"))
+        internet.selector.classList.add("active")
         count.countInternet(internet)
     })
 })

@@ -18,8 +18,8 @@ const periods = [
 
 periods.forEach(period => {
     period.selector.addEventListener('click', () => {
-        periods.forEach(period => period.selector.removeAttribute("style"))
-        period.selector.style.border = "1px solid red"
+        periods.forEach(period => period.selector.classList.remove("active"))
+        period.selector.classList.add("active")
         count.countPeriod(period)
 
         if (period.time == 24) {

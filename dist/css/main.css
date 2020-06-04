@@ -70,6 +70,13 @@
           flex-direction: column;
 }
 
+.eq-options__headline-text {
+  color: #939ea7;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  line-height: 1.2rem;
+}
+
 .eq-options__chooses {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -115,7 +122,7 @@
 }
 
 .tv-headline__text {
-  color: #bec5ca;
+  color: #BEC5CA;
   padding: 0.5rem 0;
   font-size: 1.8rem;
   line-height: 1.8rem;
@@ -133,6 +140,13 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+
+.tv-package__headline-text {
+  color: #939ea7;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  line-height: 1.2rem;
 }
 
 .tv-package__offer {
@@ -189,7 +203,7 @@
 }
 
 .chanels-enhancement__headline-text {
-  color: #bec5ca;
+  color: #BEC5CA;
   padding: 0.5rem 0;
   font-size: 1.8rem;
   line-height: 1.8rem;
@@ -204,6 +218,13 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+
+.package-extension__headline-text {
+  color: #939ea7;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  line-height: 1.2rem;
 }
 
 .package-extension__offer {
@@ -251,7 +272,7 @@
 }
 
 .internet-headline__text {
-  color: #bec5ca;
+  color: #BEC5CA;
   padding: 0.5rem 0;
   font-size: 1.8rem;
   line-height: 1.8rem;
@@ -269,6 +290,13 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+
+.web_extention__headline-text {
+  color: #939ea7;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  line-height: 1.2rem;
 }
 
 .web_extention__offer {
@@ -319,7 +347,7 @@
 }
 
 .price-summary__headline-text {
-  color: #bec5ca;
+  color: #BEC5CA;
   padding: 0.5rem 0;
   font-size: 1.8rem;
   line-height: 1.8rem;
@@ -341,7 +369,7 @@
           align-items: center;
 }
 
-.monthly-payment {
+.payment {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -357,20 +385,11 @@
           align-items: center;
 }
 
-.disposable-payment {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+.payment__headline-text {
+  color: #939ea7;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  line-height: 1.2rem;
 }
 
 .active {

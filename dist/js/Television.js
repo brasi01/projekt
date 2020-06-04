@@ -5,7 +5,7 @@ class Television {
         this.chanelsHDNumber = chanelsHDNumber;
         this.price = price;
         this.selector = selector;
-        this.chanels = [];
+        // this.chanels = [];
         
         Array.from(selector.childNodes)[1].innerHTML = this.name
         Array.from(selector.childNodes)[3].innerHTML = this.chanelsNumber
@@ -26,8 +26,9 @@ const tvs = [
 
 tvs.forEach(tvPackage => {
     tvPackage.selector.addEventListener('click', () => {
-        tvs.forEach(tvPackage => tvPackage.selector.removeAttribute("style"))
-        tvPackage.selector.style.border = "1px solid red"
+        tvs.forEach(tvPackage => tvPackage.selector.classList.remove("active"))
+        tvPackage.selector.classList.add("active")
+        count.markDefaultOptions(tvPackage)
         count.countTelevision(tvPackage)
     })
 })

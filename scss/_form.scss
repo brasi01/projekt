@@ -53,6 +53,13 @@
   display: flex;
   flex-direction: column;
 
+  &__headline-text {
+    color: color(secoundary-headline);
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+  }
+
   &__chooses {
     display: flex;
     flex-direction: column;
@@ -92,6 +99,13 @@
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
+
+  &__headline-text {
+      color: color(secoundary-headline);
+      padding: 0.5rem;
+      font-size: 1.2rem;
+      line-height: 1.2rem;
+  }
 
   &__offer {
     display: flex;
@@ -146,9 +160,12 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  // &__headline {
-
-  // }
+  &__headline-text {
+    color: color(secoundary-headline);
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+  }
 
   &__offer {
     display: flex;
@@ -190,6 +207,13 @@
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
+
+  &__headline-text {
+    color: color(secoundary-headline);
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+  }
 
   &__offer {
     display: flex;
@@ -241,20 +265,22 @@
   }
 }
 
-.monthly-payment {
+.payment {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  &__headline-text {
+    color: color(secoundary-headline);
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+  }
 }
 
-.disposable-payment {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
 
+// AKTYWNE POLA & PRZYCISKI
 
 .active {
   border: 1px solid red;
