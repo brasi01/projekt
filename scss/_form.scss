@@ -35,6 +35,8 @@
   }
 }
 
+// WYBÓR OKRESU
+
 .period-choice {
   width: 100%;
   display: flex;
@@ -48,25 +50,99 @@
   }
 }
 
-.eq-options {
+// INTERNET ŚWIATŁOWODOWY
+
+.internet {
+  width: 100%;
+}
+
+.internet-headline {
+  width: 100%;
+  text-align: center;
+  &__text {
+    color: color(secoundary);
+    padding: 0.5rem 0;
+    font-size: 1.8rem;
+    line-height: 1.8rem;
+  }
+}
+
+.web_package {
   width: 100%;
   display: flex;
+  justify-content: flex-start;
   flex-direction: column;
 
   &__headline-text {
     color: color(secoundary-headline);
-    padding: 0.5rem;
-    font-size: 1.2rem;
-    line-height: 1.2rem;
+    padding: 0.5rem 0.5rem 0 0.5rem;
   }
 
-  &__chooses {
+  &__offer {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
   }
-  &__chooses-possibility {
+
+  &__offer-headline {
+    padding: 1rem;
+    display: none;
+    &__tile {
+      padding: 0.5rem;
+    }
+  }
+
+  &__offer-content {
+    padding: 1rem;
+  }
+
+  &__offer-tile {
+    padding: 0.5rem;
+    text-align: center;
+  }
+}
+
+// OPCJE SPRZĘTOWE - INTERNET
+
+.web-hardware {
+  display: none;
+  width: 100%;
+  // display: flex;
+  flex-direction: column;
+  position: relative;
+  top: 0;
+  left: 0;
+
+  &__headline {
+    position: relative;
+    top: 0;
+  }
+
+  &__headline-text {
+    color: color(secoundary-headline);
+    padding: 0.5rem 0.5rem 0 0.5rem;
+    line-height: 2rem;
+  }
+}
+
+.hardware {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  top: 0;
+
+  &__headline-text {
+    padding: 0.5rem 1rem;
+  }
+
+  &__possibility {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  &__possibility-choose {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -75,12 +151,68 @@
     padding: 1rem;
     cursor: pointer;
   }
+
+  // &__manage {
+  //   width: 100%;
+  //   display: flex;
+  //   flex-direction: row;
+  //   justify-content: space-around;
+  // }
+
+  &__manage-option {
+    padding: 1rem;
+  }
+
+  &__add {
+    padding: 1rem;
+    display: none;
+  }
+}
+
+.extra-hardware {
+  position: relative;
+  // visibility: hidden;
+  display: none;
+
+}
+
+// TV EXTEND OR NOT
+
+.tv-extend {
+  width: 100%;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+
+  &__headline {
+    text-align: center;
+  }
+
+  &__headline-text {
+    color: color(secoundary-headline);
+    padding: 0.5rem 0.5rem 0 0.5rem;
+    line-height: 2rem;
+  }
+
+  &__chooses {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  &__possibility {
+    padding: .8rem 2.6rem;
+    cursor: pointer;
+  }
 }
 
 // TELEWIZJA ŚWIATŁOWODOWA
 
 .tv {
   width: 100%;
+  display: none;
 }
 
 .tv-headline {
@@ -101,10 +233,8 @@
   flex-direction: column;
 
   &__headline-text {
-      color: color(secoundary-headline);
-      padding: 0.5rem;
-      font-size: 1.2rem;
-      line-height: 1.2rem;
+    color: color(secoundary-headline);
+    padding: 0.5rem;
   }
 
   &__offer {
@@ -156,15 +286,13 @@
   }
 }
 
-.package-extension {
+.additional-package {
   width: 100%;
   display: flex;
   flex-direction: column;
   &__headline-text {
     color: color(secoundary-headline);
     padding: 0.5rem;
-    font-size: 1.2rem;
-    line-height: 1.2rem;
   }
 
   &__offer {
@@ -185,57 +313,43 @@
   }
 }
 
-// INTERNET ŚWIATŁOWODOWY
+// OPCJE SPRZĘTOWE - TV
 
-.internet {
-  width: 100%;
-}
-
-.internet-headline {
-  width: 100%;
-  text-align: center;
-  &__text {
-    color: color(secoundary);
-    padding: 0.5rem 0;
-    font-size: 1.8rem;
-    line-height: 1.8rem;
-  }
-}
-
-.web_extention {
+.tv-hardware {
+  // display: none;
   width: 100%;
   display: flex;
-  justify-content: flex-start;
   flex-direction: column;
+  position: relative;
+  top: 0;
+  left: 0;
+
+  &__headline {
+    position: relative;
+    top: 0;
+  }
 
   &__headline-text {
     color: color(secoundary-headline);
-    padding: 0.5rem;
-    font-size: 1.2rem;
-    line-height: 1.2rem;
+    padding: 0.5rem 0.5rem 0 0.5rem;
+    line-height: 2rem;
   }
 
-  &__offer {
+
+  &__chooses {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__chooses-possibility {
     display: flex;
     flex-direction: column;
     justify-content: center;
-  }
-
-  &__offer-headline {
-    padding: 1rem;
-    display: none;
-    &__tile {
-      padding: 0.5rem;
-    }
-  }
-
-  &__offer-content {
-    padding: 1rem;
-  }
-
-  &__offer-tile {
-    padding: 0.5rem;
+    align-items: center;
     text-align: center;
+    padding: 1rem;
+    cursor: pointer;
   }
 }
 
@@ -243,7 +357,7 @@
 
 .price-summary {
   width: 100%;
-  display: flex;
+  display: none;
   flex-direction: column;
 
   &__headline {
@@ -258,10 +372,9 @@
   }
 
   &__schedule {
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-around;
   }
 }
 
@@ -269,20 +382,86 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+
+  &__headline {
+    align-self: center;
+  }
 
   &__headline-text {
     color: color(secoundary-headline);
-    padding: 0.5rem;
-    font-size: 1.2rem;
-    line-height: 1.2rem;
+    padding: 0.5rem 0.5rem 0 0.5rem;
+  }
+  span, p {
+    padding: .2rem 0;
   }
 }
 
+.monthly-payment, .disposable-payment {
+  &__price {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__sum {
+    display: flex;
+    justify-content: space-between;
+    align-self: stretch;
+
+    color: color(secoundary-headline);
+    padding: 0.5rem 0;
+  }
+
+
+
+}
 
 // AKTYWNE POLA & PRZYCISKI
 
 .active {
   border: 1px solid red;
 }
+
+button {
+  position: relative;
+  padding: 10px 30px;
+  border: 2px solid #70ccff;
+  color: #70ccff;
+  font-weight: 700;
+  cursor: pointer;
+  background: none;
+}
+
+.hardware__add-btn,
+.remove-hardware-btn, .choice-btn {
+  will-change: transform;
+  transition: transform .2s ease-out;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    box-shadow: 0 0px 50px rgba(0, 161, 250, 0.4);
+    transition: opacity .2s ease-in-out;
+    will-change: opacity, transform;
+    transform: translateZ(0);
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
+}
+
+
+
+
+
 

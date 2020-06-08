@@ -16,21 +16,21 @@ const periods = [
     new Period('Czas nieokreślony', 1, period_selector[2])
 ];
 
-periods.forEach(period => {
+periods.forEach((period, i) => {
     period.selector.addEventListener('click', () => {
         periods.forEach(period => period.selector.classList.remove("active"))
         period.selector.classList.add("active")
-        count.countPeriod(period)
+        count.count_period_months(period)
 
-        if (period.time == 24) {
+        if (i == 0) {
             internets.forEach((internet, i) => {
-                internet.setPrice(prices_24[i])
-                internet.changePrices_html()
+                internet.set_price(prices_24[i])
+                internet.change_prices()
             })
-        } else if (period.time == 12) {
+        } else if (i == 1) {
             internets.forEach((internet, i) => {
-                internet.setPrice(prices_12[i])
-                internet.changePrices_html()
+                internet.set_price(prices_12[i])
+                internet.change_prices()
             })
         }
     })

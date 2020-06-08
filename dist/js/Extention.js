@@ -9,7 +9,7 @@ class Extention {
     }
 }
 
-let extention_selector = document.querySelectorAll('.package-extension__offer-tile');
+let extention_selector = document.querySelectorAll('.additional-package__offer-tile');
 
 const topic_packages = [
     new Extention('DISCOVERY HD', '6.99 zł', extention_selector[0]),
@@ -36,13 +36,13 @@ const premium_packages = [
 topic_packages.forEach(package => {
     package.selector.addEventListener('click', () => {
         package.selector.classList.toggle("active");
-        count.countExtention(package);
+        count.count_additional_channels(package);
     })
 })
 
 premium_packages.forEach(package => {
     package.selector.addEventListener('click', () => {
         package.selector.classList.toggle("active");
-        count.countExtention(package);
+        count.count_additional_channels(package);
     })
 })

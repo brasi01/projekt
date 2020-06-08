@@ -1,91 +1,145 @@
 class Count {
-    constructor(){
-        this.total_price = 0;
+    constructor() {
+        this.total_one_time_payment = 0;
+        this.total_monthly_payment = 0;
+
+        this.internet_price = 0;
+        this.tv_price = 0;
+
+        this.total_hardware_price = 0;
+
+        this.internet_hardware = 0;
+        this.internet_extra_hardware = 0;
+        this.total_internet_hardware_price = 0;
+
+        this.tv_hardware_one_time_payment = 0;
+        this.tv_hardware_monthly_payment = 0;
+
+        this.additional_channels_names = [];
+        this.additional_channels_price = 0;
+
         this.period_months = periods[0].time;
-        this.tvPrice = 0;
-        this.extentionNames = [];
-        this.extentionPrice = 0;
-        this.internetPrice = 0;
-        this.total_eq_price = 0;
-        this.eqPrice_tvDisposable = 0;
-        this.eqPrice_tvMonthly = 0;
-        this.eqPrice_internet = 0;
         this.activation_charge = activation_charges[0].price;
     }
 
-    countPeriod(period) {
-        this.period_months = parseInt(period.time) 
-        this.countTotal()
+    // OKRES MIESIĘCZNY
+
+    count_period_months(period) {
+        this.period_months = parseInt(period.time)
+        //
+        // this.count_internet_price()
+        // ^^
     }
 
-    countTelevision(tvPrice) {
-        this.tvPrice = parseInt(tvPrice.price)
-        this.countTotal()
+    // INTERNET 
+
+    count_internet_price(internetPrice) {
+        this.internet_price = parseInt(internetPrice.price)
+
+        this.count_total_monthly_payment()
     }
 
-    markDefaultOptions() {
-        if(this.tvPrice === 0){
-            this.eqPrice_tvDisposable = parseInt(equipments_tv[1].price);
-            equipments_tv[1].markDefaultOption(equipments_tv[1].selector);
-            this.internetPrice = parseInt(internets[0].price);
-            internets[0].markDefaultOption(internets[0].selector);
-            this.eqPrice_internet = parseInt(equipments_internet[0].price);
-            equipments_internet[0].markDefaultOption(equipments_internet[0].selector);
-            this.countEquipment();
+    mark_default_internet_hardware() {
+        if (this.internet_price === 0) {
+            this.internet_hardware = parseInt(internet_hardwares[0].price);
+            internet_hardwares[0].mark_default_option(internet_hardwares[0].selector);
+            this.count_total_internet_hardware_price()
         }
     }
 
-    countExtention(extentionPrice) {
+    count_internet_hardware(eqPrice_internet) {
+        this.internet_hardware = parseInt(eqPrice_internet.price)
+        this.count_total_internet_hardware_price()
+    }
+
+    count_internet_extra_hardware() {
+        if (this.internet_extra_hardware === 0) {
+            this.internet_extra_hardware = parseInt(internet_extra_hardwares[0].price);
+            internet_extra_hardwares[0].mark_default_option(internet_extra_hardwares[0].selector);
+        } else {
+            this.internet_extra_hardware = 0;
+        }
+        this.count_total_internet_hardware_price()
+    }
+
+    count_total_internet_hardware_price() {
+        this.total_internet_hardware_price = this.internet_hardware + this.internet_extra_hardware;
+        //
+        // Dodaj total_eq_internet_price do Podsumowania
+        // ^^
+        this.count_total_hardware_price()
+    }
+
+    // TELEWIZJA
+
+    count_television(tvPrice) {
+        this.tv_price = parseInt(tvPrice.price)
+        this.count_total_monthly_payment()
+    }
+
+    count_additional_channels(extentionPrice) {
         let extName = extentionPrice.name;
         let extPrice = parseFloat(extentionPrice.price);
-        if (!this.extentionNames.includes(extName)){
-            this.extentionNames.push(extName);
-            this.extentionPrice += extPrice;
-        } else if(this.extentionNames.includes(extName)) {
-            this.extentionNames.splice(this.extentionNames.indexOf(extName), 1)
-            this.extentionPrice -= extPrice;
+        if (!this.additional_channels_names.includes(extName)) {
+            this.additional_channels_names.push(extName);
+            this.additional_channels_price += extPrice;
+        } else if (this.additional_channels_names.includes(extName)) {
+            this.additional_channels_names.splice(this.additional_channels_names.indexOf(extName), 1)
+            this.additional_channels_price -= extPrice;
         }
-        this.countTotal()
+        this.count_total_monthly_payment()
     }
 
-    countInternet(internetPrice) {
-        this.internetPrice = parseInt(internetPrice.price)
-        this.countTotal()
+    mark_default_tv_hardware() {
+        if (this.tv_price === 0) {
+            this.tv_hardware_one_time_payment = parseInt(equipments_tv[1].price);
+            equipments_tv[1].mark_default_option(equipments_tv[1].selector);
+            this.count_total_hardware_price()
+        }
     }
 
-    countEquipmentTV(eqPrice_tv) {
+    count_tv_hardware(eqPrice_tv) {
         if (eqPrice_tv.name == 'Dzierżawa dekodera') {
-            this.eqPrice_tvDisposable = 0;
-            this.eqPrice_tvMonthly = parseInt(eqPrice_tv.price)
+            this.tv_hardware_one_time_payment = 0;
+            this.tv_hardware_monthly_payment = parseInt(eqPrice_tv.price)
         } else if (eqPrice_tv.name == 'Zakup dekodera') {
-            this.eqPrice_tvMonthly = 0;
-            this.eqPrice_tvDisposable = parseInt(eqPrice_tv.price)
+            this.tv_hardware_monthly_payment = 0;
+            this.tv_hardware_one_time_payment = parseInt(eqPrice_tv.price)
         }
-        this.countEquipment()
+        this.count_total_hardware_price()
     }
 
-    countEquipmentInternet(eqPrice_internet) {
-        this.eqPrice_internet = parseInt(eqPrice_internet.price)
-        this.countEquipment()
+    // PODLICZANIE FINALNEJ KWOTY
+
+    clear_tv_section() {
+        this.tv_price = 0;
+        this.tv_hardware_one_time_payment = 0;
+        this.tv_hardware_monthly_payment = 0;
+        this.additional_channels_price = 0;
+        this.count_total_hardware_price()
     }
 
-    countEquipment() {
-        this.total_eq_price = this.eqPrice_internet + this.eqPrice_tvDisposable;
-        this.countTotal()
+    count_total_hardware_price() {
+        this.total_hardware_price = this.total_internet_hardware_price + this.tv_hardware_one_time_payment;
+        this.count_total_one_time_payment()
+        this.count_total_monthly_payment()
     }
 
-    countTotal() {
-        // console.log('tv: ', this.tvPrice,' internet: ', this.internetPrice, ' okres ', this.period_months, ' rozszerzenia: ', this.extentionPrice, ' graty na mies: ', this.eqPrice_tvMonthly)
-        // console.log('graty jednorazowo tv: ', this.eqPrice_tvDisposable, ' graty jednorazowo internet: ', this.eqPrice_internet, ' graty policzone: ', this.total_eq_price)
-        this.total_price = (this.tvPrice + this.internetPrice) * this.period_months + this.extentionPrice + this.eqPrice_tvMonthly;
-        totalPrice.innerText = this.total_price.toFixed(2);
-        disposablePayment.innerHTML = this.total_eq_price + parseInt(this.activation_charge);
+    count_total_one_time_payment() {
+        this.total_one_time_payment = this.total_hardware_price;
+        //
+        // DODAJ MULTIROOM I CENE AKTYWACYJNĄ
+        // ^^
+        one_time_payment.innerHTML = this.total_one_time_payment.toFixed(2);
     }
 
+    count_total_monthly_payment() {
+        this.total_monthly_payment = this.internet_price + this.tv_price + this.additional_channels_price + this.tv_hardware_monthly_payment;
+        monthly_payment.innerText = this.total_monthly_payment.toFixed(2);
+    }
 }
 
-const totalPrice = document.querySelector('.monthly-payment span');
-
-const disposablePayment = document.querySelector('.disposable-payment span');
+const monthly_payment = document.querySelector('.monthly-payment__sum span');
+const one_time_payment = document.querySelector('.disposable-payment__sum span');
 
 const count = new Count()

@@ -7,7 +7,7 @@
     text-align: start;
   }
 
-  .eq-options {
+  .tv-hardware {
     // &__headline {
     //   justify-content: flex-start;
     // }
@@ -38,7 +38,7 @@
     }
   }
 
-  .package-extension {
+  .additional-package {
     &__offer {
       flex-direction: row;
       justify-content: space-around;
@@ -49,7 +49,7 @@
     text-align: start;
   }
 
-  .web_extention {
+  .web_package {
     &__offer-content {
       flex: 1;
     }
@@ -70,15 +70,15 @@
   }
 }
 
-@include media-lg {
-  .tv-package {
-    &__offer-headline {
-      display: block;
-    }
-  }
-  .web_extention {
-    &__offer-headline {
-      display: block;
-    }
-  }
-}
+// @include media-lg {
+//   .tv-package {
+//     &__offer-headline {
+//       display: block;
+//     }
+//   }
+//   .web_package {
+//     &__offer-headline {
+//       display: block;
+//     }
+//   }
+// }
