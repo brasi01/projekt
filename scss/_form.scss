@@ -353,6 +353,84 @@
   }
 }
 
+// MULTIROOM 
+
+.multiroom {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__headline {
+    align-self: start;
+  }
+
+  &__headline-text {
+    color: color(secoundary-headline);
+    padding: 0.5rem;
+  }
+}
+
+.activate-multiroom {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  &__tile-sets, &__tile-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  &__tile-sets {
+    flex: 1;
+    display: none;
+  }
+
+  &__tile-main {
+    flex: 2;
+  }
+
+  &__intro-area {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: flex-start;
+    padding: 1rem;
+
+  }
+
+   &__btn-area {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+    span {
+      padding: 1rem;
+    }
+  }
+}
+
+.multiroom-sets {
+  display: flex;
+  &__headline {
+    text-align: center;
+    padding: 1rem;
+  }
+  &__choose {
+    padding: 1rem;
+    cursor: pointer;
+  }
+}
+
 // PODSUMOWANIE KOSZTÓW
 
 .price-summary {
@@ -410,9 +488,6 @@
     color: color(secoundary-headline);
     padding: 0.5rem 0;
   }
-
-
-
 }
 
 // AKTYWNE POLA & PRZYCISKI
