@@ -222,6 +222,13 @@ class Count {
             new Extention('Pakiet HBO HD +OD +GO', 29.90, extention_selector[19])
         ];
 
+        this.excluding_packages = [
+            [this.premium_packages[3], this.tidal_premium_packages[0]],
+            [this.premium_packages[4], this.tidal_premium_packages[1]],
+            [this.premium_packages[2], this.tidal_premium_packages[2]],
+            [this.premium_packages[1], this.tidal_premium_packages[3]]
+        ]
+
         // SPRZĘT
 
         this.activation_charges = [
@@ -254,6 +261,8 @@ class Count {
         this.multirooms = [
             new Multiroom('Multiroom', 15, 59, [1, 2, 3, 4, 5], multiroom_sets_selectors, multiroom_selector, multiroom_btn_selectors)
         ];
+        multiroom_btn_selectors[0].style.display = "none" 
+
 
         this.add_events()
 
@@ -263,6 +272,7 @@ class Count {
         this.hardware_headline = document.querySelector('.hardware__headline');
 
         this.add_extra_hardware()
+        
         this.remove_extra_hardware()
 
         this.tv_extend_chooses = document.querySelectorAll('.tv-extend__possibility');
@@ -272,6 +282,7 @@ class Count {
 
         this.total_one_time_payment = 0;
         this.total_monthly_payment = 0;
+        this.total_monthly_payment_24 = 0;
 
         this.internet_price = 0;
         this.tv_price = 0;
@@ -324,8 +335,8 @@ class Count {
         let total_one_time_payment_selector = document.querySelector('.one-time-payment__total')
 
         this.total_payments = [
-            new Price_summary(total_monthly_payment_selectors[0], this.total_monthly_payment, 'Cena na miesiąc przez 12 miesiące: '),
-            // new Price_summary(total_monthly_payment_selectors[1], this.tv_hardware_one_time_payment, 'Cena na miesiąc przez 24 miesiące: '),
+            new Price_summary(total_monthly_payment_selectors[0], this.total_monthly_payment, 'Cena na miesiąc przez 12 miesięcy: '),
+            new Price_summary(total_monthly_payment_selectors[1], this.total_monthly_payment_24, 'Cena na miesiąc za przez 24 miesiące: '),
             new Price_summary(total_one_time_payment_selector, this.total_one_time_payment, 'Suma:')
         ]
     }
@@ -333,6 +344,15 @@ class Count {
     add_events() {
         this.periods.forEach((period, i) => {
             period.selector.addEventListener('click', () => {
+                
+                if (this.internets.some(internet => internet.selector.classList.contains("active"))){
+                    this.internets.forEach(internet => internet.selector.classList.remove("active"))
+                    this.internets[0].selector.classList.add("active")
+
+                    this.count_internet_price(this.internets[0])
+                }
+                
+                
                 this.periods.forEach(period => period.selector.classList.remove("active"))
                 period.selector.classList.add("active")
                 this.count_period_months(period)
@@ -348,6 +368,8 @@ class Count {
                         internet.change_prices()
                     })
                 }
+
+                this.count_total_monthly_payment()
             })
         })
 
@@ -383,6 +405,12 @@ class Count {
         this.premium_packages.forEach(premium_package => {
             premium_package.selector.addEventListener('click', () => {
                 premium_package.selector.classList.toggle("active");
+                this.excluding_packages.forEach(package_ => {
+                    if (package_[0] == premium_package && package_[1].selector.classList.contains("active")){
+                        package_[1].selector.classList.remove("active")
+                        this.count_additional_tidal_channels(package_[1]);
+                    }
+                })
                 this.count_additional_channels(premium_package);
             })
         })
@@ -390,6 +418,12 @@ class Count {
         this.tidal_premium_packages.forEach(tidal_premium_package => {
             tidal_premium_package.selector.addEventListener('click', () => {
                 tidal_premium_package.selector.classList.toggle("active");
+                this.excluding_packages.forEach(package_ => {
+                    if (package_[1] == tidal_premium_package && package_[0].selector.classList.contains("active")){
+                        package_[0].selector.classList.remove("active")
+                        this.count_additional_channels(package_[0]);
+                    }
+                })
                 this.count_additional_tidal_channels(tidal_premium_package);
             })
         })
@@ -424,12 +458,16 @@ class Count {
                 this.multirooms[0].sets_selector.forEach(selector => {
                     selector.classList.remove("active");
                 })
+                multiroom.btn_selector[0].style.display = 'none'
+                multiroom.btn_selector[1].style.display = 'block'
                 this.clear_multiroom()
             })
             multiroom.btn_selector[1].addEventListener('click', () => {
                 document.querySelector('.activate-multiroom').classList.add("active");
                 document.querySelectorAll('.activate-multiroom__tile-sets')[0].style.display = 'flex';
                 this.multirooms[0].sets_selector[0].classList.add("active");
+                multiroom.btn_selector[0].style.display = 'block'
+                multiroom.btn_selector[1].style.display = 'none'
                 this.count_multiroom(multiroom)
             })
         });
@@ -657,9 +695,17 @@ class Count {
         })
 
         this.total_one_time_payment = this.total_hardware_price + this.multiroom_total_activation_charge + this.activation_charge;
-        this.total_payments[1].set_price(this.total_one_time_payment.toFixed(2))
+        this.total_payments[2].set_price(this.total_one_time_payment.toFixed(2))
 
         this.show_total_prices()
+
+        this.one_time_prices_summary.forEach((el, i) => {
+            if (el.value == 0 && i != 0) {
+                el.selector.style.display = 'none';
+            } else {
+                el.selector.style.display = 'block'
+            }
+        })
     }
 
     count_total_monthly_payment() {
@@ -675,10 +721,53 @@ class Count {
             price.show_summary_prices()
         })
 
-        this.total_monthly_payment = this.internet_price + this.tv_price + this.additional_channels_price + this.tv_hardware_monthly_payment + this.multiroom_total_monthly_payment;
+        
+        const active_period = this.periods.find(period => {
+            return period.selector.classList.contains("active")
+        })
+
+        this.total_payments[0].selector.style.display = 'block';
+        this.total_payments[1].selector.style.display = 'block';
+
+        if(active_period == this.periods[0]){
+            if (this.additional_tidal_channels_price == 0){
+                this.total_monthly_payment_24 = this.internet_price + this.tv_price + this.additional_channels_price + this.tv_hardware_monthly_payment + this.multiroom_total_monthly_payment;        
+                this.total_monthly_payment = this.total_monthly_payment_24;
+                this.total_payments[0].selector.style.display = 'none';
+            } else {
+                this.total_monthly_payment = this.internet_price + this.tv_price + this.additional_channels_price + this.additional_tidal_channels_price + this.tv_hardware_monthly_payment + this.multiroom_total_monthly_payment;
+                this.total_monthly_payment_24 = this.internet_price + this.tv_price + this.additional_channels_price + this.tv_hardware_monthly_payment + this.multiroom_total_monthly_payment;
+                let sum = 0;
+                this.excluding_packages.forEach(package_ => {
+                    if (package_[1].selector.classList.contains("active")) {
+                        sum += package_[0].price
+                    }
+                })
+                this.total_monthly_payment_24 += sum;
+            }
+                
+        } else {
+            this.total_monthly_payment = this.internet_price + this.tv_price + this.additional_channels_price + this.additional_tidal_channels_price  + this.tv_hardware_monthly_payment + this.multiroom_total_monthly_payment;
+            this.total_payments[1].selector.style.display = 'none';
+        }
+
+        
+        
+        
+    
         this.total_payments[0].set_price(this.total_monthly_payment.toFixed(2))
+        this.total_payments[1].set_price(this.total_monthly_payment_24.toFixed(2))
 
         this.show_total_prices()
+
+        this.monthly_prices_summary.forEach(el => {
+            if (el.value == 0) {
+                el.selector.style.display = 'none';
+            } else {
+                el.selector.style.display = 'block'
+            }
+        })
+        
     }
 
 
