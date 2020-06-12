@@ -22,9 +22,16 @@ $colors: (
   @return map-get($colors, $color-name);
 }
 
-@mixin headings {
-  color: color(accent-color);
-  text-shadow: 0 0 5px color(accent-shadow);
+@mixin headline {
+  color: color(secoundary);
+  padding: 0.5rem 0;
+  font-size: 1.8rem;
+  line-height: 1.8rem;
+}
+
+@mixin headline-sec {
+  color: color(secoundary-headline);
+  padding: 0.5rem 0.5rem 0 0.5rem;
 }
 
 // @mixin transition-ease {

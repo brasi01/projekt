@@ -1,8 +1,6 @@
 .form {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   margin: auto;
   padding: 1.6rem;
 
@@ -27,10 +25,10 @@
   text-align: center;
 
   &__text {
-    @include headings;
+    color: color(accent-color);
+    text-shadow: 0 0 5px color(accent-shadow);
     font-size: 2rem;
     line-height: 2rem;
-    font-weight: normal;
     padding: 0.5rem 0;
   }
 }
@@ -41,7 +39,7 @@
   width: 100%;
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: baseline;
 
   &__option {
     text-align: center;
@@ -59,37 +57,24 @@
 .internet-headline {
   width: 100%;
   text-align: center;
+  
   &__text {
-    color: color(secoundary);
-    padding: 0.5rem 0;
-    font-size: 1.8rem;
-    line-height: 1.8rem;
+    @include headline;
   }
 }
 
 .web_package {
   width: 100%;
   display: flex;
-  justify-content: flex-start;
   flex-direction: column;
 
   &__headline-text {
-    color: color(secoundary-headline);
-    padding: 0.5rem 0.5rem 0 0.5rem;
+    @include headline-sec;
   }
 
   &__offer {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-  }
-
-  &__offer-headline {
-    padding: 1rem;
-    display: none;
-    &__tile {
-      padding: 0.5rem;
-    }
   }
 
   &__offer-content {
@@ -105,23 +90,30 @@
 // OPCJE SPRZĘTOWE - INTERNET
 
 .web-hardware {
-  display: none;
   width: 100%;
-  // display: flex;
+  display: none;
   flex-direction: column;
-  position: relative;
-  top: 0;
-  left: 0;
-
-  &__headline {
-    position: relative;
-    top: 0;
-  }
 
   &__headline-text {
-    color: color(secoundary-headline);
-    padding: 0.5rem 0.5rem 0 0.5rem;
-    line-height: 2rem;
+    @include headline-sec;
+  }
+
+  &__chooses {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__chooses-possibility {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    cursor: pointer;
+
+    span {
+      padding: 0.25rem;
+    }
   }
 }
 
@@ -129,51 +121,21 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  position: relative;
-  top: 0;
 
   &__headline-text {
     padding: 0.5rem 1rem;
   }
 
-  &__possibility {
+  &__manage-option {
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-  }
-
-  &__possibility-choose {
-    display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;
     padding: 1rem;
-    cursor: pointer;
-  }
-
-  // &__manage {
-  //   width: 100%;
-  //   display: flex;
-  //   flex-direction: row;
-  //   justify-content: space-around;
-  // }
-
-  &__manage-option {
-    padding: 1rem;
-  }
-
-  &__add {
-    padding: 1rem;
-    display: none;
   }
 }
 
 .extra-hardware {
-  position: relative;
-  // visibility: hidden;
   display: none;
-
 }
 
 // TV EXTEND OR NOT
@@ -182,28 +144,26 @@
   width: 100%;
   display: none;
   flex-direction: column;
-  justify-content: center;
-  align-content: center;
+  margin: 2rem 0;
 
   &__headline {
+    width: 100%;
     text-align: center;
   }
 
   &__headline-text {
-    color: color(secoundary-headline);
-    padding: 0.5rem 0.5rem 0 0.5rem;
-    line-height: 2rem;
+    @include headline-sec;
   }
 
   &__chooses {
     width: 100%;
     display: flex;
     justify-content: space-evenly;
-    align-items: center;
+    align-items: baseline;
   }
 
   &__possibility {
-    padding: .8rem 2.6rem;
+    padding: 0.8rem 2.6rem;
     cursor: pointer;
   }
 }
@@ -219,37 +179,22 @@
   width: 100%;
   text-align: center;
   &__text {
-    color: color(secoundary);
-    padding: 0.5rem 0;
-    font-size: 1.8rem;
-    line-height: 1.8rem;
+    @include headline;
   }
 }
 
 .tv-package {
   width: 100%;
   display: flex;
-  justify-content: flex-start;
   flex-direction: column;
 
   &__headline-text {
-    color: color(secoundary-headline);
-    padding: 0.5rem;
+    @include headline-sec;
   }
 
   &__offer {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-  }
-
-  &__offer-headline {
-    padding: 1rem;
-    display: none;
-
-    &__tile {
-      padding: 0.5rem;
-    }
   }
 
   &__offer-content {
@@ -264,25 +209,25 @@
 
 // DOSTĘPNE KANAŁY
 
-.available-channels {
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
+// .available-channels {
+//   width: 100%;
+//   display: flex;
+//   justify-content: flex-start;
+//   align-items: center;
+// }
 
 // ROZSZERZANIE KANAŁÓW
+
 .chanels-enhancement {
   width: 100%;
+
   &__headline {
     width: 100%;
     text-align: center;
   }
+
   &__headline-text {
-    color: color(secoundary);
-    padding: 0.5rem 0;
-    font-size: 1.8rem;
-    line-height: 1.8rem;
+    @include headline;
   }
 }
 
@@ -290,16 +235,14 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+
   &__headline-text {
-    color: color(secoundary-headline);
-    padding: 0.5rem;
+    @include headline-sec;
   }
 
   &__offer {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
   }
 
   &__offer-tile {
@@ -307,37 +250,27 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    padding: 1rem;
+    padding: 0.5rem 1rem;
     cursor: pointer;
+
+    span {
+      padding: 0.25rem;
+    }
   }
 }
 
 // OPCJE SPRZĘTOWE - TV
 
 .tv-hardware {
-  // display: none;
   width: 100%;
   display: flex;
   flex-direction: column;
-  position: relative;
-  top: 0;
-  left: 0;
-
-  &__headline {
-    position: relative;
-    top: 0;
-  }
 
   &__headline-text {
-    color: color(secoundary-headline);
-    padding: 0.5rem 0.5rem 0 0.5rem;
-    line-height: 2rem;
+    @include headline-sec;
   }
 
-
   &__chooses {
-    width: 100%;
     display: flex;
     flex-direction: column;
   }
@@ -347,84 +280,61 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    padding: 1rem;
+    padding: 0.5rem;
     cursor: pointer;
+
+    span {
+      padding: 0.25rem;
+    }
   }
 }
 
-// MULTIROOM 
+// MULTIROOM
 
 .multiroom {
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  &__headline {
-    align-self: start;
-  }
 
   &__headline-text {
-    color: color(secoundary-headline);
-    padding: 0.5rem;
+    @include headline-sec;
   }
 }
 
 .activate-multiroom {
   width: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-
-  &__tile-sets, &__tile-main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  &__tile-sets {
-    flex: 1;
-    display: none;
-  }
-
-  &__tile-main {
-    flex: 2;
-  }
+  flex-direction: column;
 
   &__intro-area {
-    width: 80%;
     display: flex;
     flex-direction: column;
-    justify-content: stretch;
-    align-items: flex-start;
-    padding: 1rem;
-
+    padding: 0.5rem 1rem;
   }
 
-   &__btn-area {
-    width: 80%;
+  &__intro {
+    padding: 0.5rem 0;
+  }
+
+  &__sets-area {
+    display: none;
+    flex-direction: column;
+    padding: 0.5rem 1rem;
+  }
+
+  &__btn-area {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    align-items: center;
-
-    span {
-      padding: 1rem;
-    }
+    align-items: baseline;
   }
 }
 
 .multiroom-sets {
   display: flex;
-  &__headline {
-    text-align: center;
-    padding: 1rem;
-  }
+  justify-content: space-around;
+  align-items: baseline;
+
   &__choose {
     padding: 1rem;
     cursor: pointer;
@@ -443,57 +353,53 @@
     text-align: center;
   }
   &__headline-text {
-    color: color(secoundary);
-    padding: 0.5rem 0;
-    font-size: 1.8rem;
-    line-height: 1.8rem;
+    @include headline;
   }
 
   &__schedule {
     width: 100%;
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }
 
 .payment {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  &__headline {
-    align-self: center;
-  }
+  width: 100%;
+  margin-bottom: 2rem;
 
   &__headline-text {
-    color: color(secoundary-headline);
-    padding: 0.5rem 0.5rem 0 0.5rem;
-  }
-  span, p {
-    padding: .2rem 0;
+    @include headline-sec;
   }
 }
 
-.monthly-payment, .disposable-payment {
+.monthly-payment,
+.one-time-payment {
   &__price {
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
+    padding: 0.25rem 1rem;
   }
 
-  &__sum {
+  &__total {
     display: flex;
     justify-content: space-between;
-    align-self: stretch;
-
-    color: color(secoundary-headline);
-    padding: 0.5rem 0;
+    align-items: flex-end;
+    @include headline-sec;
   }
 }
 
 // AKTYWNE POLA & PRZYCISKI
 
 .active {
-  border: 1px solid red;
+  color: #f2f9ff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 1), 0 0 5px rgba(255, 255, 255, 0.4);
+  background: url(http://www.inetgo.pl/templates/yoo_catalyst/images/fancy.png)
+    center no-repeat;
+  background-size: 100% 110%;
+  background-position-y: 0.6rem;
 }
 
 button {
@@ -507,9 +413,10 @@ button {
 }
 
 .hardware__add-btn,
-.remove-hardware-btn, .choice-btn {
+.remove-hardware-btn,
+.choice-btn, .activate-multiroom__btn {
   will-change: transform;
-  transition: transform .2s ease-out;
+  transition: transform 0.2s ease-out;
 
   &:hover {
     transform: translateY(-2px);
@@ -524,8 +431,8 @@ button {
     width: 100%;
     height: 100%;
     opacity: 0;
-    box-shadow: 0 0px 50px rgba(0, 161, 250, 0.4);
-    transition: opacity .2s ease-in-out;
+    box-shadow: 0 0px 40px rgba(0, 161, 250, 0.6);
+    transition: opacity 0.2s ease-in-out;
     will-change: opacity, transform;
     transform: translateZ(0);
   }
@@ -534,9 +441,3 @@ button {
     opacity: 1;
   }
 }
-
-
-
-
-
-

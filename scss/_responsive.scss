@@ -3,32 +3,27 @@
     width: 60%;
   }
 
-  .form-headline {
-    text-align: start;
-  }
-
-  .tv-hardware {
-    // &__headline {
-    //   justify-content: flex-start;
-    // }
-
-    &__chooses {
-      flex-direction: row;
-      justify-content: space-around;
-    }
-  }
-
+  .form-headline,
+  .internet-headline,
   .tv-headline {
     text-align: start;
   }
 
+  .web_package,
   .tv-package {
-    &__offer-content {
-      flex: 1;
-    }
     &__offer {
       flex-flow: row wrap;
-      justify-content: space-between;
+      justify-content: space-evenly;
+      align-items: baseline;
+    }
+  }
+
+  .web-hardware,
+  .tv-hardware {
+    &__chooses {
+      flex-flow: row wrap;
+      justify-content: space-evenly;
+      align-items: baseline;
     }
   }
 
@@ -40,22 +35,9 @@
 
   .additional-package {
     &__offer {
-      flex-direction: row;
-      justify-content: space-around;
-    }
-  }
-
-  .internet-headline {
-    text-align: start;
-  }
-
-  .web_package {
-    &__offer-content {
-      flex: 1;
-    }
-    &__offer {
       flex-flow: row wrap;
-      justify-content: space-between;
+      justify-content: space-evenly;
+      align-items: baseline;
     }
   }
 
@@ -63,22 +45,37 @@
     &__headline {
       text-align: start;
     }
-    &__schedule {
-      flex-direction: row;
-      justify-content: space-around;
-    }
   }
 }
 
-// @include media-lg {
-//   .tv-package {
-//     &__offer-headline {
-//       display: block;
-//     }
-//   }
-//   .web_package {
-//     &__offer-headline {
-//       display: block;
-//     }
-//   }
-// }
+@include media-lg {
+  .price-summary {
+    &__schedule {
+      flex-direction: row;
+      justify-content: space-evenly;
+      align-items: baseline;
+    }
+  }
+
+  .payment {
+    width: 40%;
+  }
+
+  .activate-multiroom {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: baseline;
+
+    &__intro-area {
+      flex: 2;
+    }
+
+     &__sets-area, &__btn-area {
+      flex: 1;
+    }
+
+    &__btn-area {
+      align-self: center;
+    }
+  }
+}

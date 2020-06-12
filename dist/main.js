@@ -18,8 +18,8 @@ class Internet {
         this.selector_btn = selector_btn;
 
         Array.from(selector.childNodes)[1].innerHTML = this.name;
-        Array.from(selector.childNodes)[3].innerHTML = this.speed_down;
-        Array.from(selector.childNodes)[5].innerHTML = this.speed_sent;
+        Array.from(selector.childNodes)[3].innerHTML = this.get_speed_down();
+        Array.from(selector.childNodes)[5].innerHTML = this.get_speed_sent()
         Array.from(selector.childNodes)[7].innerHTML = this.get_price();
 
         this.change_prices = () => {
@@ -29,6 +29,14 @@ class Internet {
 
     set_price(value) {
         this.price = value;
+    }
+
+    get_speed_down() {
+        return `Prędkość ściągania: ${this.speed_down}`
+    }
+
+    get_speed_sent() {
+        return `Prędkość wysyłania: ${this.speed_sent}`
     }
 
     get_price() {
@@ -47,13 +55,21 @@ class Television {
         // this.chanels = [];
 
         Array.from(selector.childNodes)[1].innerHTML = this.name
-        Array.from(selector.childNodes)[3].innerHTML = this.chanels_number
-        Array.from(selector.childNodes)[5].innerHTML = this.chanels_hd_number
+        Array.from(selector.childNodes)[3].innerHTML = this.get_chanels_number()
+        Array.from(selector.childNodes)[5].innerHTML = this.get_chanels_hd_number()
         Array.from(selector.childNodes)[7].innerHTML = this.get_price()
     }
 
     mark_default_option(selector) {
         selector.classList.add('active');
+    }
+
+    get_chanels_number() {
+        return `Ilość wszystkich kanałów: ${this.chanels_number} zł / mc`
+    }
+
+    get_chanels_hd_number() {
+        return `Ilość kanałow HD: ${this.chanels_hd_number} zł / mc`
     }
 
     get_price() {
@@ -134,7 +150,7 @@ class Price_summary {
 
         this.show_summary_prices = () => {
             Array.from(selector.childNodes)[1].innerHTML = this.name;
-            Array.from(selector.childNodes)[3].innerHTML = this.value;
+            Array.from(selector.childNodes)[3].innerHTML = this.get_price();
 
         }
 
@@ -143,6 +159,10 @@ class Price_summary {
 
     set_price(value) {
         this.value = value;
+    }
+
+    get_price() {
+        return `${this.value} zł`
     }
 
 }
@@ -235,7 +255,7 @@ class Count {
             new Equipment('Opłata aktywacyjna', 199)
         ];
 
-        let hardware_selector = document.querySelectorAll('.hardware__possibility-choose');
+        let hardware_selector = document.querySelectorAll('.web-hardware__chooses-possibility');
 
         this.internet_hardwares = [
             new Hardware('Router WiFi Standard', 0, hardware_selector[0]),
@@ -259,7 +279,7 @@ class Count {
         let multiroom_sets_selectors = [...document.querySelectorAll('.multiroom-sets__choose')];
 
         this.multirooms = [
-            new Multiroom('Multiroom', 15, 59, [1, 2, 3, 4, 5], multiroom_sets_selectors, multiroom_selector, multiroom_btn_selectors)
+            new Multiroom('Możliwość niezależnego odbioru wykupionego pakietu na kolejnym telewizorze.', 15, 59, [1, 2, 3, 4, 5], multiroom_sets_selectors, multiroom_selector, multiroom_btn_selectors)
         ];
         multiroom_btn_selectors[0].style.display = "none" 
 
@@ -336,7 +356,7 @@ class Count {
 
         this.total_payments = [
             new Price_summary(total_monthly_payment_selectors[0], this.total_monthly_payment, 'Cena na miesiąc przez 12 miesięcy: '),
-            new Price_summary(total_monthly_payment_selectors[1], this.total_monthly_payment_24, 'Cena na miesiąc za przez 24 miesiące: '),
+            new Price_summary(total_monthly_payment_selectors[1], this.total_monthly_payment_24, 'Cena na miesiąc przez 24 miesiące: '),
             new Price_summary(total_one_time_payment_selector, this.total_one_time_payment, 'Suma:')
         ]
     }
@@ -453,8 +473,8 @@ class Count {
                 })
             })
             multiroom.btn_selector[0].addEventListener('click', () => {
-                document.querySelector('.activate-multiroom').classList.remove("active");
-                document.querySelectorAll('.activate-multiroom__tile-sets')[0].style.display = 'none';
+                document.querySelector('.activate-multiroom__intro').classList.remove("active");
+                document.querySelectorAll('.activate-multiroom__sets-area')[0].style.display = 'none';
                 this.multirooms[0].sets_selector.forEach(selector => {
                     selector.classList.remove("active");
                 })
@@ -463,8 +483,8 @@ class Count {
                 this.clear_multiroom()
             })
             multiroom.btn_selector[1].addEventListener('click', () => {
-                document.querySelector('.activate-multiroom').classList.add("active");
-                document.querySelectorAll('.activate-multiroom__tile-sets')[0].style.display = 'flex';
+                document.querySelector('.activate-multiroom__intro').classList.add("active");
+                document.querySelectorAll('.activate-multiroom__sets-area')[0].style.display = 'flex';
                 this.multirooms[0].sets_selector[0].classList.add("active");
                 multiroom.btn_selector[0].style.display = 'block'
                 multiroom.btn_selector[1].style.display = 'none'
@@ -685,10 +705,10 @@ class Count {
     }
 
     count_total_one_time_payment() {
-        this.one_time_prices_summary[0].set_price(this.total_internet_hardware_price)
-        this.one_time_prices_summary[1].set_price(this.tv_hardware_one_time_payment)
-        this.one_time_prices_summary[2].set_price(this.multiroom_total_activation_charge)
-        this.one_time_prices_summary[3].set_price(this.activation_charge)
+        this.one_time_prices_summary[0].set_price(this.total_internet_hardware_price.toFixed(2))
+        this.one_time_prices_summary[1].set_price(this.tv_hardware_one_time_payment.toFixed(2))
+        this.one_time_prices_summary[2].set_price(this.multiroom_total_activation_charge.toFixed(2))
+        this.one_time_prices_summary[3].set_price(this.activation_charge.toFixed(2))
 
         this.one_time_prices_summary.forEach(price => {
             price.show_summary_prices()
@@ -703,19 +723,19 @@ class Count {
             if (el.value == 0 && i != 0) {
                 el.selector.style.display = 'none';
             } else {
-                el.selector.style.display = 'block'
+                el.selector.style.display = 'flex'
             }
         })
     }
 
     count_total_monthly_payment() {
 
-        this.monthly_prices_summary[0].set_price(this.internet_price)
-        this.monthly_prices_summary[1].set_price(this.tv_price)
+        this.monthly_prices_summary[0].set_price(this.internet_price.toFixed(2))
+        this.monthly_prices_summary[1].set_price(this.tv_price.toFixed(2))
         this.monthly_prices_summary[2].set_price(this.additional_channels_price.toFixed(2))
         this.monthly_prices_summary[3].set_price(this.additional_tidal_channels_price.toFixed(2))
-        this.monthly_prices_summary[4].set_price(this.tv_hardware_monthly_payment)
-        this.monthly_prices_summary[5].set_price(this.multiroom_total_monthly_payment)
+        this.monthly_prices_summary[4].set_price(this.tv_hardware_monthly_payment.toFixed(2))
+        this.monthly_prices_summary[5].set_price(this.multiroom_total_monthly_payment.toFixed(2))
 
         this.monthly_prices_summary.forEach(price => {
             price.show_summary_prices()
@@ -726,8 +746,8 @@ class Count {
             return period.selector.classList.contains("active")
         })
 
-        this.total_payments[0].selector.style.display = 'block';
-        this.total_payments[1].selector.style.display = 'block';
+        this.total_payments[0].selector.style.display = 'flex';
+        this.total_payments[1].selector.style.display = 'flex';
 
         if(active_period == this.periods[0]){
             if (this.additional_tidal_channels_price == 0){
@@ -751,10 +771,6 @@ class Count {
             this.total_payments[1].selector.style.display = 'none';
         }
 
-        
-        
-        
-    
         this.total_payments[0].set_price(this.total_monthly_payment.toFixed(2))
         this.total_payments[1].set_price(this.total_monthly_payment_24.toFixed(2))
 
@@ -764,12 +780,11 @@ class Count {
             if (el.value == 0) {
                 el.selector.style.display = 'none';
             } else {
-                el.selector.style.display = 'block'
+                el.selector.style.display = 'flex'
             }
         })
         
     }
-
 
     show_total_prices() {
         this.total_payments.forEach(price => {
