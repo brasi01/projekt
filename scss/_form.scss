@@ -57,7 +57,7 @@
 .internet-headline {
   width: 100%;
   text-align: center;
-  
+
   &__text {
     @include headline;
   }
@@ -86,6 +86,82 @@
     text-align: center;
   }
 }
+
+// CENA AKTYWACYJNA
+
+.activation-charge {
+  width: 100%;
+  display: none;
+  flex-direction: column;
+
+  &__headline-text {
+    @include headline-sec;
+  }
+}
+
+.change-charge {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &__headline {
+    padding: 0.5rem 1rem;
+  }
+
+  &__area, &__panel {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__panel {
+    padding: 0.5rem;
+  }
+
+  &__manage {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  &__form {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+  }
+
+  &__alert {
+    display: none;
+    justify-content: center;
+    padding: 0.5rem 0 0 0;
+  }
+
+  &__input {
+    max-width: 90%;
+    border-radius: 2px;
+    border: none;
+    padding: 10px 30px;
+    margin: 0 10px 0 0;
+    background-color: rgba(color(primary), .4);
+    color: color(secoundary-headline);
+
+    &:focus {
+      box-shadow: 0 0px 40px rgba(0, 161, 250, 0.6);
+    }
+  }
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button
+{
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number]
+{
+  -moz-appearance: textfield;
+}
+
 
 // OPCJE SPRZĘTOWE - INTERNET
 
@@ -190,6 +266,10 @@
 
   &__headline-text {
     @include headline-sec;
+  }
+
+  &__sub-headline-text {
+    padding: 0.5rem 1rem;
   }
 
   &__offer {
@@ -327,6 +407,7 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: baseline;
+    padding: 1rem;
   }
 }
 
@@ -394,7 +475,7 @@
 // AKTYWNE POLA & PRZYCISKI
 
 .active {
-  color: #f2f9ff;
+  color: color(active-primary);
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 1), 0 0 5px rgba(255, 255, 255, 0.4);
   background: url(http://www.inetgo.pl/templates/yoo_catalyst/images/fancy.png)
     center no-repeat;
@@ -405,8 +486,8 @@
 button {
   position: relative;
   padding: 10px 30px;
-  border: 2px solid #70ccff;
-  color: #70ccff;
+  border: 2px solid color(accent-color);
+  color: color(accent-color);
   font-weight: 700;
   cursor: pointer;
   background: none;
@@ -414,7 +495,8 @@ button {
 
 .hardware__add-btn,
 .remove-hardware-btn,
-.choice-btn, .activate-multiroom__btn {
+.choice-btn,
+.activate-multiroom__btn, .change-charge__btn {
   will-change: transform;
   transition: transform 0.2s ease-out;
 

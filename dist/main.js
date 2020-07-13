@@ -180,8 +180,8 @@ class Count {
         ];
 
         // INTERNET
-        let internet_selector = document.querySelectorAll('.web_package__offer-content');
-        let internet_selector_btn = document.querySelectorAll('.web_package__offer-tile button')
+        let internet_selector = document.querySelectorAll('.web_package__offer-content'),
+            internet_selector_btn = document.querySelectorAll('.web_package__offer-tile button');
 
         this.internets = [
             new Internet('100 MEGA', '10 Mb/s', '5 Mb/s', 59, internet_selector[0], internet_selector_btn[0]),
@@ -198,8 +198,8 @@ class Count {
 
         // TELEWIZJA 
 
-        let options_selector = document.querySelectorAll('.tv-package__offer-content');
-        let tv_selector_btn = document.querySelectorAll('.tv-package__offer-tile button')
+        let options_selector = document.querySelectorAll('.tv-package__offer-content'),
+            tv_selector_btn = document.querySelectorAll('.tv-package__offer-tile button');
 
         this.tvs = [
             new Television('Mikro HD', '76', '38', 75, options_selector[0], tv_selector_btn[0]),
@@ -274,15 +274,14 @@ class Count {
             new Hardware('Zakup dekodera', 240, eq_selector[1])
         ];
 
-        let multiroom_selector = document.querySelector('.activate-multiroom__intro-area');
-        let multiroom_btn_selectors = [...document.querySelectorAll('.activate-multiroom__btn-area button')];
-        let multiroom_sets_selectors = [...document.querySelectorAll('.multiroom-sets__choose')];
+        let multiroom_selector = document.querySelector('.activate-multiroom__intro-area'),
+            multiroom_btn_selectors = [...document.querySelectorAll('.activate-multiroom__btn-area button')],
+            multiroom_sets_selectors = [...document.querySelectorAll('.multiroom-sets__choose')];
 
         this.multirooms = [
             new Multiroom('Możliwość niezależnego odbioru wykupionego pakietu na kolejnym telewizorze.', 15, 59, [1, 2, 3, 4, 5], multiroom_sets_selectors, multiroom_selector, multiroom_btn_selectors)
         ];
-        multiroom_btn_selectors[0].style.display = "none" 
-
+        multiroom_btn_selectors[0].style.display = "none"
 
         this.add_events()
 
@@ -292,7 +291,7 @@ class Count {
         this.hardware_headline = document.querySelector('.hardware__headline');
 
         this.add_extra_hardware()
-        
+
         this.remove_extra_hardware()
 
         this.tv_extend_chooses = document.querySelectorAll('.tv-extend__possibility');
@@ -351,28 +350,32 @@ class Count {
             new Price_summary(one_time_payment_selectors[3], this.activation_charge, 'Cena aktywacyjna:')
         ]
 
-        let total_monthly_payment_selectors = [...document.querySelectorAll('.monthly-payment__total')]
-        let total_one_time_payment_selector = document.querySelector('.one-time-payment__total')
+        let total_monthly_payment_selectors = [...document.querySelectorAll('.monthly-payment__total')],
+            total_one_time_payment_selector = document.querySelector('.one-time-payment__total');
 
         this.total_payments = [
             new Price_summary(total_monthly_payment_selectors[0], this.total_monthly_payment, 'Cena na miesiąc przez 12 miesięcy: '),
             new Price_summary(total_monthly_payment_selectors[1], this.total_monthly_payment_24, 'Cena na miesiąc przez 24 miesiące: '),
             new Price_summary(total_one_time_payment_selector, this.total_one_time_payment, 'Suma:')
         ]
+
+        this.change_charge_btn = document.querySelector('.change-charge__btn');
+        this.change_charge_alert = document.querySelector('.change-charge__alert');
+        this.count_activation_charge()
     }
 
     add_events() {
         this.periods.forEach((period, i) => {
             period.selector.addEventListener('click', () => {
-                
-                if (this.internets.some(internet => internet.selector.classList.contains("active"))){
+
+                if (this.internets.some(internet => internet.selector.classList.contains("active"))) {
                     this.internets.forEach(internet => internet.selector.classList.remove("active"))
                     this.internets[0].selector.classList.add("active")
 
                     this.count_internet_price(this.internets[0])
                 }
-                
-                
+
+
                 this.periods.forEach(period => period.selector.classList.remove("active"))
                 period.selector.classList.add("active")
                 this.count_period_months(period)
@@ -401,6 +404,7 @@ class Count {
                 document.querySelector('.web-hardware').style.display = 'flex';
                 document.querySelector('.tv-extend').style.display = 'flex';
                 document.querySelector('.price-summary').style.display = 'flex';
+                document.querySelector('.activation-charge').style.display = 'flex';
                 //^^
                 this.mark_default_internet_hardware()
                 this.count_internet_price(internet)
@@ -426,7 +430,7 @@ class Count {
             premium_package.selector.addEventListener('click', () => {
                 premium_package.selector.classList.toggle("active");
                 this.excluding_packages.forEach(package_ => {
-                    if (package_[0] == premium_package && package_[1].selector.classList.contains("active")){
+                    if (package_[0] == premium_package && package_[1].selector.classList.contains("active")) {
                         package_[1].selector.classList.remove("active")
                         this.count_additional_tidal_channels(package_[1]);
                     }
@@ -439,7 +443,7 @@ class Count {
             tidal_premium_package.selector.addEventListener('click', () => {
                 tidal_premium_package.selector.classList.toggle("active");
                 this.excluding_packages.forEach(package_ => {
-                    if (package_[1] == tidal_premium_package && package_[0].selector.classList.contains("active")){
+                    if (package_[1] == tidal_premium_package && package_[0].selector.classList.contains("active")) {
                         package_[0].selector.classList.remove("active")
                         this.count_additional_channels(package_[0]);
                     }
@@ -491,6 +495,20 @@ class Count {
                 this.count_multiroom(multiroom)
             })
         });
+    }
+
+    count_activation_charge() {
+        this.change_charge_btn.addEventListener('click', () => {
+            let value = document.querySelector('.change-charge__input').valueAsNumber;
+            if ( value >= 0 && value <= 199 ) {
+                this.change_charge_alert.style.display = "none"
+                this.activation_charge = document.querySelector('.change-charge__input').valueAsNumber
+                this.count_total_one_time_payment()
+            } else {
+                this.change_charge_alert.style.display = "flex"
+            }
+
+        })
     }
 
     add_extra_hardware() {
@@ -556,17 +574,12 @@ class Count {
 
     count_period_months({ time }) {
         this.period_months = parseInt(time)
-        // this.count_total_monthly_payment()
     }
-
-    // count_activation_charge() {
-    // }
 
     // INTERNET 
 
     count_internet_price({ price }) {
         this.internet_price = parseInt(price)
-        // this.count_activation_charge()
         this.count_total_monthly_payment()
     }
 
@@ -741,7 +754,7 @@ class Count {
             price.show_summary_prices()
         })
 
-        
+
         const active_period = this.periods.find(period => {
             return period.selector.classList.contains("active")
         })
@@ -749,9 +762,9 @@ class Count {
         this.total_payments[0].selector.style.display = 'flex';
         this.total_payments[1].selector.style.display = 'flex';
 
-        if(active_period == this.periods[0]){
-            if (this.additional_tidal_channels_price == 0){
-                this.total_monthly_payment_24 = this.internet_price + this.tv_price + this.additional_channels_price + this.tv_hardware_monthly_payment + this.multiroom_total_monthly_payment;        
+        if (active_period == this.periods[0]) {
+            if (this.additional_tidal_channels_price == 0) {
+                this.total_monthly_payment_24 = this.internet_price + this.tv_price + this.additional_channels_price + this.tv_hardware_monthly_payment + this.multiroom_total_monthly_payment;
                 this.total_monthly_payment = this.total_monthly_payment_24;
                 this.total_payments[0].selector.style.display = 'none';
             } else {
@@ -765,9 +778,9 @@ class Count {
                 })
                 this.total_monthly_payment_24 += sum;
             }
-                
+
         } else {
-            this.total_monthly_payment = this.internet_price + this.tv_price + this.additional_channels_price + this.additional_tidal_channels_price  + this.tv_hardware_monthly_payment + this.multiroom_total_monthly_payment;
+            this.total_monthly_payment = this.internet_price + this.tv_price + this.additional_channels_price + this.additional_tidal_channels_price + this.tv_hardware_monthly_payment + this.multiroom_total_monthly_payment;
             this.total_payments[1].selector.style.display = 'none';
         }
 
@@ -783,7 +796,7 @@ class Count {
                 el.selector.style.display = 'flex'
             }
         })
-        
+
     }
 
     show_total_prices() {

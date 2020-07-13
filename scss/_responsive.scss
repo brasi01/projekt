@@ -9,6 +9,16 @@
     text-align: start;
   }
 
+  
+.change-charge {
+  &__area {
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: baseline;
+  }
+
+}
+
   .web_package,
   .tv-package {
     &__offer {

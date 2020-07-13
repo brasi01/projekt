@@ -1,15 +1,11 @@
 $colors: (
-  primary: #6f6f77,
-  secoundary: #BEC5CA,
+  primary: rgb(111,111,119),
+  headline: #BEC5CA,
   secoundary-headline: #939ea7,
-  //  #9ba1a5, #a5acb1, #999fa4
-
   accent-color: #70ccff,
   accent-shadow: rgba(0, 161, 250, 0.4),
-  //   accent-color-darker: rgb(35, 143, 35),
-    bg: rgb(38, 38, 38),
-  //   bg-light: #fff,
-    bg-dark: #08080a,
+  bg: rgb(38, 38, 38),
+  active-primary: #f2f9ff
 );
 
 * {
@@ -23,7 +19,7 @@ $colors: (
 }
 
 @mixin headline {
-  color: color(secoundary);
+  color: color(headline);
   padding: 0.5rem 0;
   font-size: 1.8rem;
   line-height: 1.8rem;
