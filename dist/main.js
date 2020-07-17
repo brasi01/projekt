@@ -170,7 +170,6 @@ class Price_summary {
 class Count {
     constructor() {
         // OKRES MIESIĘCZNY
-
         let period_selector = document.querySelectorAll('.period-choice__option');
 
         this.periods = [
@@ -255,7 +254,7 @@ class Count {
             new Equipment('Opłata aktywacyjna', 199)
         ];
 
-        let hardware_selector = document.querySelectorAll('.web-hardware__chooses-possibility');
+        let hardware_selector = document.querySelectorAll('.web-hardware__options-possibility');
 
         this.internet_hardwares = [
             new Hardware('Router WiFi Standard', 0, hardware_selector[0]),
@@ -267,11 +266,22 @@ class Count {
             new Hardware('Router WiFi Standard', 159, hardware_selector[3]),
         ];
 
-        let eq_selector = document.querySelectorAll('.tv-hardware__chooses-possibility');
+        let eq_selector = document.querySelectorAll('.tv-hardware__options-possibility');
 
-        this.equipments_tv = [
+        this.tv_hardwares = [
             new Hardware('Dzierżawa dekodera', 10, eq_selector[0]),
             new Hardware('Zakup dekodera', 240, eq_selector[1])
+        ];
+
+        let multiroom_hardware_selector = document.querySelectorAll('.multiroom-hardware__options-possibility');
+        this.multiroom_hardware_areas = [...document.querySelectorAll('.multiroom-hardware')]
+
+        this.multiroom_hardwares = [
+            [new Hardware('Dzierżawa dekodera', 10, multiroom_hardware_selector[0]), new Hardware('Zakup dekodera', 240, multiroom_hardware_selector[1])],
+            [new Hardware('Dzierżawa dekodera', 10, multiroom_hardware_selector[2]), new Hardware('Zakup dekodera', 240, multiroom_hardware_selector[3])],
+            [new Hardware('Dzierżawa dekodera', 10, multiroom_hardware_selector[4]), new Hardware('Zakup dekodera', 240, multiroom_hardware_selector[5])],
+            [new Hardware('Dzierżawa dekodera', 10, multiroom_hardware_selector[6]), new Hardware('Zakup dekodera', 240, multiroom_hardware_selector[7])],
+            [new Hardware('Dzierżawa dekodera', 10, multiroom_hardware_selector[8]), new Hardware('Zakup dekodera', 240, multiroom_hardware_selector[9])]
         ];
 
         let multiroom_selector = document.querySelector('.activate-multiroom__intro-area'),
@@ -291,10 +301,9 @@ class Count {
         this.hardware_headline = document.querySelector('.hardware__headline');
 
         this.add_extra_hardware()
-
         this.remove_extra_hardware()
 
-        this.tv_extend_chooses = document.querySelectorAll('.tv-extend__possibility');
+        this.tv_extend_options = document.querySelectorAll('.tv-extend__possibility');
         this.tv_section = document.querySelector('.tv')
 
         this.show_tv_section()
@@ -326,6 +335,10 @@ class Count {
         this.multiroom_activation_price = 0;
         this.multiroom_total_activation_charge = 0;
         this.multiroom_total_monthly_payment = 0;
+        this.multiroom_hardwares_names = []
+
+        this.multiroom_hardware_monthly_payment = 0;
+        this.multiroom_hardware_one_time_payment = 0;
 
         this.period_months = this.periods[0].time;
         this.activation_charge = this.activation_charges[0].price;
@@ -337,8 +350,10 @@ class Count {
             new Price_summary(monthly_payment_selectors[1], this.tv_price, 'Cena telewizji:'),
             new Price_summary(monthly_payment_selectors[2], this.additional_channels_price, 'Cena dodatkowych kanałów:'),
             new Price_summary(monthly_payment_selectors[3], this.additional_tidal_channels_price, 'Cena dodatkowych kanałów w 12 miesięcznej promocji:'),
-            new Price_summary(monthly_payment_selectors[4], this.tv_hardware_monthly_payment, 'Dzierżawa dekodera:'),
-            new Price_summary(monthly_payment_selectors[5], this.multiroom_total_monthly_payment, 'Multiroom:')
+            new Price_summary(monthly_payment_selectors[4], this.multiroom_total_monthly_payment, 'Multiroom:'),
+            new Price_summary(monthly_payment_selectors[5], this.tv_hardware_monthly_payment, 'Dzierżawa dekodera TV:'),
+            new Price_summary(monthly_payment_selectors[6], this.multiroom_hardware_monthly_payment, 'Dzierżawa dekodera multiroom:')
+
         ]
 
         let one_time_payment_selectors = [...document.querySelectorAll('.one-time-payment__price')]
@@ -346,8 +361,9 @@ class Count {
         this.one_time_prices_summary = [
             new Price_summary(one_time_payment_selectors[0], this.total_internet_hardware_price, 'Cena sprzętu internetowego:'),
             new Price_summary(one_time_payment_selectors[1], this.tv_hardware_one_time_payment, 'Cena sprzętu telewizyjnego:'),
-            new Price_summary(one_time_payment_selectors[2], this.multiroom_total_activation_charge, 'Cena aktywacyjna multiroom:'),
-            new Price_summary(one_time_payment_selectors[3], this.activation_charge, 'Cena aktywacyjna:')
+            new Price_summary(one_time_payment_selectors[2], this.multiroom_hardware_one_time_payment, 'Cena sprzętu multiroom:'),
+            new Price_summary(one_time_payment_selectors[3], this.multiroom_total_activation_charge, 'Cena aktywacyjna multiroom:'),
+            new Price_summary(one_time_payment_selectors[4], this.activation_charge, 'Cena aktywacyjna:')
         ]
 
         let total_monthly_payment_selectors = [...document.querySelectorAll('.monthly-payment__total')],
@@ -365,31 +381,34 @@ class Count {
     }
 
     add_events() {
-        this.periods.forEach((period, i) => {
+        this.periods.forEach((period) => {
             period.selector.addEventListener('click', () => {
-
-                if (this.internets.some(internet => internet.selector.classList.contains("active"))) {
-                    this.internets.forEach(internet => internet.selector.classList.remove("active"))
-                    this.internets[0].selector.classList.add("active")
-
-                    this.count_internet_price(this.internets[0])
-                }
-
 
                 this.periods.forEach(period => period.selector.classList.remove("active"))
                 period.selector.classList.add("active")
                 this.count_period_months(period)
 
-                if (i === 0) {
+                if (period.time === 24) {
                     this.internets.forEach((internet, i) => {
                         internet.set_price(this.internet_monthly_prices[0].prices_24[i])
                         internet.change_prices()
                     })
-                } else if (i === 1) {
+                } else if (period.time === 12) {
                     this.internets.forEach((internet, i) => {
                         internet.set_price(this.internet_monthly_prices[1].prices_12[i])
                         internet.change_prices()
                     })
+                }
+
+                if (this.internets.some(internet => internet.selector.classList.contains("active"))) {
+                    this.internets.forEach(internet => internet.selector.classList.remove("active"))
+                    this.internets[0].selector.classList.add("active")
+
+                    if (this.tv_extend_options[1].classList.contains("active")) {
+                        this.mark_default_tv_package()
+                    }
+
+                    this.count_internet_price(this.internets[0])
                 }
 
                 this.count_total_monthly_payment()
@@ -400,12 +419,10 @@ class Count {
             internet.selector_btn.addEventListener('click', () => {
                 this.internets.forEach(internet => internet.selector.classList.remove("active"))
                 internet.selector.classList.add("active")
-                //
                 document.querySelector('.web-hardware').style.display = 'flex';
                 document.querySelector('.tv-extend').style.display = 'flex';
                 document.querySelector('.price-summary').style.display = 'flex';
                 document.querySelector('.activation-charge').style.display = 'flex';
-                //^^
                 this.mark_default_internet_hardware()
                 this.count_internet_price(internet)
             })
@@ -460,54 +477,82 @@ class Count {
             })
         })
 
-        this.equipments_tv.forEach(equipment => {
-            equipment.selector.addEventListener('click', () => {
-                this.equipments_tv.forEach(equipment => equipment.selector.classList.remove("active"))
-                equipment.selector.classList.add("active")
-                this.count_tv_hardware(equipment)
-            })
-        })
-
         this.multirooms.forEach(multiroom => {
             multiroom.sets_selector.forEach(selector => {
                 selector.addEventListener('click', () => {
                     multiroom.sets_selector.forEach(sets_selector => sets_selector.classList.remove("active"))
                     selector.classList.add("active")
+                    this.show_multiroom_hardware(selector)
                     this.count_multiroom_sets(selector)
                 })
             })
             multiroom.btn_selector[0].addEventListener('click', () => {
+
                 document.querySelector('.activate-multiroom__intro').classList.remove("active");
                 document.querySelectorAll('.activate-multiroom__sets-area')[0].style.display = 'none';
+                this.multiroom_hardware_areas.forEach(hardware => hardware.style.display = "none")
+
                 this.multirooms[0].sets_selector.forEach(selector => {
                     selector.classList.remove("active");
                 })
+
                 multiroom.btn_selector[0].style.display = 'none'
                 multiroom.btn_selector[1].style.display = 'block'
                 this.clear_multiroom()
+
             })
+
             multiroom.btn_selector[1].addEventListener('click', () => {
+
                 document.querySelector('.activate-multiroom__intro').classList.add("active");
                 document.querySelectorAll('.activate-multiroom__sets-area')[0].style.display = 'flex';
+                this.multiroom_hardware_areas[0].style.display = "flex"
                 this.multirooms[0].sets_selector[0].classList.add("active");
                 multiroom.btn_selector[0].style.display = 'block'
                 multiroom.btn_selector[1].style.display = 'none'
+                this.mark_default_multiroom_hardware()
                 this.count_multiroom(multiroom)
+
             })
+
         });
+
+        this.tv_hardwares.forEach(hardware => {
+            hardware.selector.addEventListener('click', () => {
+                this.tv_hardwares.forEach(hardware => hardware.selector.classList.remove("active"))
+                hardware.selector.classList.add("active")
+                this.count_tv_hardware(hardware)
+            })
+        })
+
+        this.multiroom_hardwares.forEach(hardware => {
+            hardware.forEach(el => el.selector.addEventListener('click', () => {
+
+                if (el.selector.nextElementSibling) {
+                    el.selector.nextElementSibling.classList.remove("active")
+                } else if (el.selector.previousElementSibling) {
+                    el.selector.previousElementSibling.classList.remove("active")
+                }
+                
+                if (!el.selector.classList.contains("active")) {
+                    this.count_multiroom_hardware(el)
+                    el.selector.classList.add("active")
+                }
+            }))
+            
+        })
     }
 
     count_activation_charge() {
         this.change_charge_btn.addEventListener('click', () => {
-            let value = document.querySelector('.change-charge__input').valueAsNumber;
-            if ( value >= 0 && value <= 199 ) {
+            let change_charge_input = document.querySelector('.change-charge__input');
+            if (document.querySelector('.change-charge__input').validity.valid) {
                 this.change_charge_alert.style.display = "none"
-                this.activation_charge = document.querySelector('.change-charge__input').valueAsNumber
+                this.activation_charge = change_charge_input.valueAsNumber
                 this.count_total_one_time_payment()
             } else {
                 this.change_charge_alert.style.display = "flex"
             }
-
         })
     }
 
@@ -547,14 +592,14 @@ class Count {
     }
 
     show_tv_section() {
-        this.tv_extend_chooses[0].addEventListener('click', () => {
+        this.tv_extend_options[0].addEventListener('click', () => {
             this.tv_section.style.display = "none";
-            this.tv_extend_chooses.forEach(choose => choose.classList.remove("active"))
-            this.tv_extend_chooses[0].classList.add("active")
+            this.tv_extend_options.forEach(choose => choose.classList.remove("active"))
+            this.tv_extend_options[0].classList.add("active")
             this.tvs.forEach(tv => {
                 tv.selector.classList.remove("active")
             })
-            this.equipments_tv.forEach(equipment => {
+            this.tv_hardwares.forEach(equipment => {
                 equipment.selector.classList.remove("active")
             })
             this.remove_additional_channels_class()
@@ -562,10 +607,10 @@ class Count {
             this.clear_tv_section()
         });
 
-        this.tv_extend_chooses[1].addEventListener('click', () => {
+        this.tv_extend_options[1].addEventListener('click', () => {
             this.tv_section.style.display = "block";
-            this.tv_extend_chooses.forEach(choose => choose.classList.remove("active"))
-            this.tv_extend_chooses[1].classList.add("active")
+            this.tv_extend_options.forEach(choose => choose.classList.remove("active"))
+            this.tv_extend_options[1].classList.add("active")
             this.mark_default_tv_package()
         });
     }
@@ -614,12 +659,21 @@ class Count {
     // TELEWIZJA
 
     count_television({ price }) {
-        this.tv_price = parseInt(price)
+        if (this.period_months === 12) {
+            this.tv_price = parseInt(price) - this.internet_monthly_prices[1].prices_12[0]
+        } else if (this.period_months === 24) {
+            this.tv_price = parseInt(price) - this.internet_monthly_prices[0].prices_24[0]
+        }
         this.count_total_monthly_payment()
     }
 
     mark_default_tv_package() {
-        this.tv_price = parseInt(this.tvs[0].price);
+        if (this.period_months === 12) {
+            this.tv_price = parseInt(this.tvs[0].price) - this.internet_monthly_prices[1].prices_12[0]
+        } else if (this.period_months === 24) {
+            this.tv_price = parseInt(this.tvs[0].price) - this.internet_monthly_prices[0].prices_24[0]
+        }
+        this.tvs.forEach(tv => tv.selector.classList.remove("active"))
         this.tvs[0].mark_default_option(this.tvs[0].selector);
         this.mark_default_tv_hardware()
     }
@@ -657,17 +711,16 @@ class Count {
     }
 
     mark_default_tv_hardware() {
-        this.tv_hardware_one_time_payment = parseInt(this.equipments_tv[1].price);
-        this.equipments_tv[1].mark_default_option(this.equipments_tv[1].selector);
+        this.tv_hardware_one_time_payment = parseInt(this.tv_hardwares[1].price);
+        this.tv_hardwares[1].mark_default_option(this.tv_hardwares[1].selector);
         this.count_total_hardware_price()
-
     }
 
     count_tv_hardware({ name, price }) {
-        if (name == 'Dzierżawa dekodera') {
+        if (name == this.tv_hardwares[0].name) {
             this.tv_hardware_one_time_payment = 0;
             this.tv_hardware_monthly_payment = price;
-        } else if (name == 'Zakup dekodera') {
+        } else if (name == this.tv_hardwares[1].name) {
             this.tv_hardware_monthly_payment = 0;
             this.tv_hardware_one_time_payment = price;
         }
@@ -682,7 +735,67 @@ class Count {
 
     count_multiroom_sets(sets) {
         this.multiroom_sets = parseInt(sets.childNodes[0].nodeValue);
+        this.count_multiroom_default_hardware()
         this.count_multiroom_total()
+    }
+
+    show_multiroom_hardware(selector) {
+        this.multiroom_hardware_areas.forEach(hardware => hardware.style.display = "none")
+        this.multiroom_hardwares.forEach(hardware => hardware.forEach(el => el.selector.classList.remove("active")))
+        let i = 0
+        while (i < parseInt(selector.childNodes[0].nodeValue)) {
+            this.multiroom_hardware_areas[i].style.display = "flex"
+            this.multiroom_hardwares[i][0].mark_default_option(this.multiroom_hardwares[i][0].selector)
+            i++
+        }
+    }
+
+    count_multiroom_hardware({ name, price }) {
+        
+        if (this.multiroom_hardwares_names.filter(i => i === name).length < this.multiroom_sets)  {
+
+            if (name == this.multiroom_hardwares[0][0].name) {
+
+                this.multiroom_hardwares_names.splice(this.multiroom_hardwares_names.indexOf(this.multiroom_hardwares[0][1].name), 1)
+                this.multiroom_hardwares_names.push(name)
+                this.multiroom_hardware_monthly_payment = this.multiroom_hardwares_names.filter(i => i === this.multiroom_hardwares[0][0].name).length * price;
+                this.multiroom_hardware_one_time_payment = this.multiroom_hardwares_names.filter(i => i === this.multiroom_hardwares[0][1].name).length * parseInt(this.multiroom_hardwares[0][1].price);
+            
+            } else if (name == this.multiroom_hardwares[0][1].name) {
+
+                this.multiroom_hardwares_names.splice(this.multiroom_hardwares_names.indexOf(this.multiroom_hardwares[0][0].name), 1)
+                this.multiroom_hardwares_names.push(name)
+                this.multiroom_hardware_monthly_payment = this.multiroom_hardwares_names.filter(i => i === this.multiroom_hardwares[0][0].name).length * parseInt(this.multiroom_hardwares[0][0].price);
+                this.multiroom_hardware_one_time_payment = this.multiroom_hardwares_names.filter(i => i === this.multiroom_hardwares[0][1].name).length * price;
+            
+            }
+        } 
+        
+        this.count_total_one_time_payment()
+        this.count_total_monthly_payment()
+    }
+
+    count_multiroom_default_hardware() {
+        this.multiroom_hardware_monthly_payment = parseInt(this.multiroom_hardwares[0][0].price) * this.multiroom_sets
+        this.multiroom_hardwares_names = []
+        let i = 0
+        while (i < this.multiroom_sets) {
+            this.multiroom_hardwares_names.push(this.multiroom_hardwares[0][0].name)
+            i++
+        }
+        this.count_total_monthly_payment()
+    }
+
+    mark_default_multiroom_hardware() {
+        this.multiroom_hardware_monthly_payment = parseInt(this.multiroom_hardwares[0][0].price);
+        this.multiroom_hardwares[0][0].mark_default_option(this.multiroom_hardwares[0][0].selector)
+        this.multiroom_hardwares_names = []
+        let i = 0
+        while (i < this.multiroom_sets) {
+            this.multiroom_hardwares_names.push(this.multiroom_hardwares[0][0].name)
+            i++
+        }
+        this.count_total_monthly_payment()
     }
 
     count_multiroom_total() {
@@ -696,6 +809,8 @@ class Count {
         this.multiroom_monthly_price = 0;
         this.multiroom_activation_price = 0;
         this.multiroom_sets = 1;
+        this.multiroom_hardware_monthly_payment = 0;
+        this.multiroom_hardware_one_time_payment = 0;
         this.count_multiroom_total()
     }
 
@@ -720,8 +835,9 @@ class Count {
     count_total_one_time_payment() {
         this.one_time_prices_summary[0].set_price(this.total_internet_hardware_price.toFixed(2))
         this.one_time_prices_summary[1].set_price(this.tv_hardware_one_time_payment.toFixed(2))
-        this.one_time_prices_summary[2].set_price(this.multiroom_total_activation_charge.toFixed(2))
-        this.one_time_prices_summary[3].set_price(this.activation_charge.toFixed(2))
+        this.one_time_prices_summary[2].set_price(this.multiroom_hardware_one_time_payment.toFixed(2))
+        this.one_time_prices_summary[3].set_price(this.multiroom_total_activation_charge.toFixed(2))
+        this.one_time_prices_summary[4].set_price(this.activation_charge.toFixed(2))
 
         this.one_time_prices_summary.forEach(price => {
             price.show_summary_prices()
@@ -747,8 +863,9 @@ class Count {
         this.monthly_prices_summary[1].set_price(this.tv_price.toFixed(2))
         this.monthly_prices_summary[2].set_price(this.additional_channels_price.toFixed(2))
         this.monthly_prices_summary[3].set_price(this.additional_tidal_channels_price.toFixed(2))
-        this.monthly_prices_summary[4].set_price(this.tv_hardware_monthly_payment.toFixed(2))
-        this.monthly_prices_summary[5].set_price(this.multiroom_total_monthly_payment.toFixed(2))
+        this.monthly_prices_summary[4].set_price(this.multiroom_total_monthly_payment.toFixed(2))
+        this.monthly_prices_summary[5].set_price(this.tv_hardware_monthly_payment.toFixed(2))
+        this.monthly_prices_summary[6].set_price(this.multiroom_hardware_monthly_payment.toFixed(2))
 
         this.monthly_prices_summary.forEach(price => {
             price.show_summary_prices()
@@ -764,12 +881,12 @@ class Count {
 
         if (active_period == this.periods[0]) {
             if (this.additional_tidal_channels_price == 0) {
-                this.total_monthly_payment_24 = this.internet_price + this.tv_price + this.additional_channels_price + this.tv_hardware_monthly_payment + this.multiroom_total_monthly_payment;
+                this.total_monthly_payment_24 = this.internet_price + this.tv_price + this.additional_channels_price + this.tv_hardware_monthly_payment + this.multiroom_total_monthly_payment + this.multiroom_hardware_monthly_payment;
                 this.total_monthly_payment = this.total_monthly_payment_24;
                 this.total_payments[0].selector.style.display = 'none';
             } else {
-                this.total_monthly_payment = this.internet_price + this.tv_price + this.additional_channels_price + this.additional_tidal_channels_price + this.tv_hardware_monthly_payment + this.multiroom_total_monthly_payment;
-                this.total_monthly_payment_24 = this.internet_price + this.tv_price + this.additional_channels_price + this.tv_hardware_monthly_payment + this.multiroom_total_monthly_payment;
+                this.total_monthly_payment = this.internet_price + this.tv_price + this.additional_channels_price + this.additional_tidal_channels_price + this.tv_hardware_monthly_payment + this.multiroom_total_monthly_payment + this.multiroom_hardware_monthly_payment;
+                this.total_monthly_payment_24 = this.internet_price + this.tv_price + this.additional_channels_price + this.tv_hardware_monthly_payment + this.multiroom_total_monthly_payment + this.multiroom_hardware_monthly_payment;
                 let sum = 0;
                 this.excluding_packages.forEach(package_ => {
                     if (package_[1].selector.classList.contains("active")) {
@@ -780,7 +897,7 @@ class Count {
             }
 
         } else {
-            this.total_monthly_payment = this.internet_price + this.tv_price + this.additional_channels_price + this.additional_tidal_channels_price + this.tv_hardware_monthly_payment + this.multiroom_total_monthly_payment;
+            this.total_monthly_payment = this.internet_price + this.tv_price + this.additional_channels_price + this.additional_tidal_channels_price + this.tv_hardware_monthly_payment + this.multiroom_total_monthly_payment + this.multiroom_hardware_monthly_payment;
             this.total_payments[1].selector.style.display = 'none';
         }
 

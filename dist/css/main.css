@@ -191,6 +191,10 @@
           box-shadow: 0 0px 40px rgba(0, 161, 250, 0.6);
 }
 
+.change-charge__input:invalid {
+  border: 1px solid red;
+}
+
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -215,7 +219,7 @@ input[type=number] {
   padding: 0.5rem 0.5rem 0 0.5rem;
 }
 
-.web-hardware__chooses {
+.web-hardware__options {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -225,7 +229,7 @@ input[type=number] {
           flex-direction: column;
 }
 
-.web-hardware__chooses-possibility {
+.web-hardware__options-possibility {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -243,7 +247,7 @@ input[type=number] {
   cursor: pointer;
 }
 
-.web-hardware__chooses-possibility span {
+.web-hardware__options-possibility span {
   padding: 0.25rem;
 }
 
@@ -299,7 +303,7 @@ input[type=number] {
   padding: 0.5rem 0.5rem 0 0.5rem;
 }
 
-.tv-extend__chooses {
+.tv-extend__options {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -453,7 +457,7 @@ input[type=number] {
   padding: 0.5rem 0.5rem 0 0.5rem;
 }
 
-.tv-hardware__chooses {
+.tv-hardware__options {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -463,7 +467,11 @@ input[type=number] {
           flex-direction: column;
 }
 
-.tv-hardware__chooses-possibility {
+.tv-hardware__options-headline-text {
+  padding: 0.5rem 1rem;
+}
+
+.tv-hardware__options-possibility {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -481,7 +489,52 @@ input[type=number] {
   cursor: pointer;
 }
 
-.tv-hardware__chooses-possibility span {
+.tv-hardware__options-possibility span {
+  padding: 0.25rem;
+}
+
+.multiroom-hardware {
+  width: 100%;
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.multiroom-hardware__options {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.multiroom-hardware__headline-text {
+  padding: 0.5rem 1rem;
+}
+
+.multiroom-hardware__options-possibility {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.multiroom-hardware__options-possibility span {
   padding: 0.25rem;
 }
 
@@ -744,8 +797,8 @@ button {
         -ms-flex-align: baseline;
             align-items: baseline;
   }
-  .web-hardware__chooses,
-  .tv-hardware__chooses {
+  .web-hardware__options,
+  .tv-hardware__options, .multiroom-hardware__options {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
         -ms-flex-flow: row wrap;

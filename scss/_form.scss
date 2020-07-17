@@ -147,6 +147,10 @@
     &:focus {
       box-shadow: 0 0px 40px rgba(0, 161, 250, 0.6);
     }
+
+    &:invalid {
+      border: 1px solid red;
+    }
   }
 }
 
@@ -174,12 +178,12 @@ input[type=number]
     @include headline-sec;
   }
 
-  &__chooses {
+  &__options {
     display: flex;
     flex-direction: column;
   }
 
-  &__chooses-possibility {
+  &__options-possibility {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -231,7 +235,7 @@ input[type=number]
     @include headline-sec;
   }
 
-  &__chooses {
+  &__options {
     width: 100%;
     display: flex;
     justify-content: space-evenly;
@@ -350,12 +354,16 @@ input[type=number]
     @include headline-sec;
   }
 
-  &__chooses {
+  &__options {
     display: flex;
     flex-direction: column;
   }
 
-  &__chooses-possibility {
+  &__options-headline-text {
+    padding: 0.5rem 1rem;
+  }
+
+  &__options-possibility {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -368,6 +376,36 @@ input[type=number]
     }
   }
 }
+
+.multiroom-hardware {
+  width: 100%;
+  display: none;
+  flex-direction: column;
+
+  &__options {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__headline-text {
+    padding: 0.5rem 1rem;
+  }
+
+  &__options-possibility {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    cursor: pointer;
+
+    span {
+      padding: 0.25rem;
+    }
+  }
+}
+
+
 
 // MULTIROOM
 

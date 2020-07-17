@@ -129,12 +129,17 @@
         </header>
         <div class="change-charge">
           <header class="change-charge__headline">
-            <h1 class="change-charge__headline-text">Opłata aktywacyjna jest automatycznie naliczana i jest obowiązkowa.
-              Możesz zmienić jej wartość.</h1>
+            <h1 class="change-charge__headline-text">
+              Opłata aktywacyjna jest automatycznie naliczana i jest
+              obowiązkowa. Możesz zmienić jej wartość.
+            </h1>
           </header>
           <div class="change-charge__area">
             <div class="change-charge__panel">
-              <div class="change-charge__form"><input type="number" value="199.00" step="0.01" class="change-charge__input">zł</div>
+              <div class="change-charge__form">
+                <input type="number" value="199.00" step="0.01" max="199.00" min="0" class="change-charge__input"
+                  required />zł
+              </div>
               <div class="change-charge__alert">
                 <p>Podaj prawidłową wartość.</p>
               </div>
@@ -153,16 +158,16 @@
           <div class="hardware__headline">
             <h1 class="hardware__headline-text">Router 1</h1>
           </div>
-          <div class="web-hardware__chooses">
-            <div class="web-hardware__chooses-possibility">
+          <div class="web-hardware__options">
+            <div class="web-hardware__options-possibility">
               <span></span>
               <span></span>
             </div>
-            <div class="web-hardware__chooses-possibility">
+            <div class="web-hardware__options-possibility">
               <span></span>
               <span></span>
             </div>
-            <div class="web-hardware__chooses-possibility">
+            <div class="web-hardware__options-possibility">
               <span></span>
               <span></span>
             </div>
@@ -175,8 +180,8 @@
           <div class="hardware__headline">
             <h1 class="hardware__headline-text">Router 2</h1>
           </div>
-          <div class="web-hardware__chooses">
-            <div class="web-hardware__chooses-possibility">
+          <div class="web-hardware__options">
+            <div class="web-hardware__options-possibility">
               <span></span>
               <span></span>
             </div>
@@ -193,7 +198,7 @@
           Czy chcesz rozszerzyć Swój pakiet o telewizję światłowodową?
         </h1>
       </header>
-      <div class="tv-extend__chooses">
+      <div class="tv-extend__options">
         <div class="tv-extend__possibility"><span>Nie</span></div>
         <div class="tv-extend__possibility"><span>Tak</span></div>
       </div>
@@ -208,7 +213,10 @@
             Wybierz pakiet telewizyjny
           </h1>
           <div class="tv-package__sub-headline">
-            <h1 class="tv-package__sub-headline-text">Uwaga, w cenie zawarta jest wartość 100 MEGA-bitowego pakietu internetowego.</h1>
+            <h1 class="tv-package__sub-headline-text">
+              Uwaga, w cenie zawarta jest wartość 100 MEGA-bitowego pakietu
+              internetowego.
+            </h1>
           </div>
         </header>
         <div class="tv-package__offer">
@@ -434,50 +442,131 @@
           </div>
         </div>
       </section>
+      <div class="multiroom">
+        <header class="multiroom__headline">
+          <h1 class="multiroom__headline-text">Multiroom</h1>
+        </header>
+        <div class="activate-multiroom">
+          <div class="activate-multiroom__intro-area">
+            <span class="activate-multiroom__intro"></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="activate-multiroom__sets-area">
+            <header class="multiroom-sets__headline">
+              <h1 class="multiroom-sets__headline-text">
+                Wybierz ilość dodatkowych odbiorników
+              </h1>
+            </header>
+            <div class="multiroom-sets">
+              <div class="multiroom-sets__choose"><span></span></div>
+              <div class="multiroom-sets__choose"><span></span></div>
+              <div class="multiroom-sets__choose"><span></span></div>
+              <div class="multiroom-sets__choose"><span></span></div>
+              <div class="multiroom-sets__choose"><span></span></div>
+            </div>
+          </div>
+          <div class="activate-multiroom__btn-area">
+            <button class="activate-multiroom__btn">Odrzuć</button>
+            <button class="activate-multiroom__btn">Aktywuj</button>
+          </div>
+        </div>
+      </div>
       <div class="tv-hardware">
         <header class="tv-hardware__headline">
           <h1 class="tv-hardware__headline-text">Opcje sprzętowe</h1>
         </header>
-        <div class="tv-hardware__chooses">
-          <div class="tv-hardware__chooses-possibility">
-            <span></span>
-            <span></span>
+        <div class="hardware">
+          <div class="tv-hardware__options-headline">
+            <h1 class="tv-hardware__options-headline-text">Dekoder telewizyjny</h1>
           </div>
-          <div class="tv-hardware__chooses-possibility">
-            <span></span>
-            <span></span>
-          </div>
-        </div>
-        <div class="multiroom">
-          <header class="multiroom__headline">
-            <h1 class="multiroom__headline-text">Multiroom</h1>
-          </header>
-          <div class="activate-multiroom">
-            <div class="activate-multiroom__intro-area">
-              <span class="activate-multiroom__intro"></span>
+          <div class="tv-hardware__options">
+            <div class="tv-hardware__options-possibility">
               <span></span>
               <span></span>
             </div>
-            <div class="activate-multiroom__sets-area">
-              <header class="multiroom-sets__headline">
-                <h1 class="multiroom-sets__headline-text">
-                  Wybierz ilość dodatkowych odbiorników
-                </h1>
-              </header>
-              <div class="multiroom-sets">
-                <div class="multiroom-sets__choose"><span></span></div>
-                <div class="multiroom-sets__choose"><span></span></div>
-                <div class="multiroom-sets__choose"><span></span></div>
-                <div class="multiroom-sets__choose"><span></span></div>
-                <div class="multiroom-sets__choose"><span></span></div>
-              </div>
-            </div>
-            <div class="activate-multiroom__btn-area">
-              <button class="activate-multiroom__btn">Odrzuć</button>
-              <button class="activate-multiroom__btn">Aktywuj</button>
+            <div class="tv-hardware__options-possibility">
+              <span></span>
+              <span></span>
             </div>
           </div>
         </div>
+        <div class="multiroom-hardware">
+          <div class="multiroom-hardware__headline">
+            <h1 class="multiroom-hardware__headline-text">Dekoder multiroom 1</h1>
+          </div>
+          <div class="multiroom-hardware__options">
+            <div class="multiroom-hardware__options-possibility">
+              <span></span>
+              <span></span>
+            </div>
+            <div class="multiroom-hardware__options-possibility">
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+        <div class="multiroom-hardware">
+          <div class="multiroom-hardware__headline">
+            <h1 class="multiroom-hardware__headline-text">Dekoder multiroom 2</h1>
+          </div>
+          <div class="multiroom-hardware__options">
+            <div class="multiroom-hardware__options-possibility">
+              <span></span>
+              <span></span>
+            </div>
+            <div class="multiroom-hardware__options-possibility">
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+        <div class="multiroom-hardware">
+          <div class="multiroom-hardware__headline">
+            <h1 class="multiroom-hardware__headline-text">Dekoder multiroom 3</h1>
+          </div>
+          <div class="multiroom-hardware__options">
+            <div class="multiroom-hardware__options-possibility">
+              <span></span>
+              <span></span>
+            </div>
+            <div class="multiroom-hardware__options-possibility">
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+        <div class="multiroom-hardware">
+          <div class="multiroom-hardware__headline">
+            <h1 class="multiroom-hardware__headline-text">Dekoder multiroom 4</h1>
+          </div>
+          <div class="multiroom-hardware__options">
+            <div class="multiroom-hardware__options-possibility">
+              <span></span>
+              <span></span>
+            </div>
+            <div class="multiroom-hardware__options-possibility">
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+        <div class="multiroom-hardware">
+          <div class="multiroom-hardware__headline">
+            <h1 class="multiroom-hardware__headline-text">Dekoder multiroom 5</h1>
+          </div>
+          <div class="multiroom-hardware__options">
+            <div class="multiroom-hardware__options-possibility">
+              <span></span>
+              <span></span>
+            </div>
+            <div class="multiroom-hardware__options-possibility">
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
     <section class="price-summary">
       <header class="price-summary__headline">
@@ -489,6 +578,10 @@
             <h1 class="payment__headline-text">Opłaty miesięczne</h1>
           </header>
           <div class="monthly-payment">
+            <div class="monthly-payment__price">
+              <span></span>
+              <span></span>
+            </div>
             <div class="monthly-payment__price">
               <span></span>
               <span></span>
@@ -528,6 +621,10 @@
             <h1 class="payment__headline-text">Opłata jednorazowa</h1>
           </header>
           <div class="one-time-payment">
+            <div class="one-time-payment__price">
+              <span></span>
+              <span></span>
+            </div>
             <div class="one-time-payment__price">
               <span></span>
               <span></span>
